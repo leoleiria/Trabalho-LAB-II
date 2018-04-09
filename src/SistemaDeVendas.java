@@ -24,16 +24,16 @@ public class SistemaDeVendas {
 	public static void Cadastro() {
 		switch (Menu.menuCadastro()) {
 		case 1:
-			cadastrarCliente();
+			Cadastro.cadastrarCliente();
 			break;
 		case 2:
-			cadastrarAviao();
+			Cadastro.cadastrarAviao();
 			break;
 		case 3:
-			cadastrarVoo();
+			Cadastro.cadastrarVoo();
 			break;
 		case 4:
-			cadastrarVenda();
+			Cadastro.cadastrarVenda();
 			break;
 		default:
 			System.out.println("Opção inválida!");
@@ -42,31 +42,23 @@ public class SistemaDeVendas {
 	}
 
 	public static void Consulta() {
-		ConsultaCliente.ListaTodos();
-		ConsultaAviao.ListaTodos();
-		//ConsultaVoo.ListaTodos();
-	}
-
-	public static void cadastrarCliente() {
-		Cliente cliente = new Cliente(Console.scanInt("Digite o rg: "), Console.scanString("Digite o nome: "),
-				Console.scanString("Digite o numero de telefone: "));
-		System.out.println("__________________");
-	}
-
-	public static void cadastrarAviao() {
-		Aviao aviao = new Aviao(Console.scanString("Digite o ID do avião: "),
-				Console.scanString("Digite o nome do avião: "), Console.scanInt("Digite a quantidade de assentos: "));
-		System.out.println("__________________");
-	}
-
-	public static void cadastrarVoo() {
-		Voo voo = new Voo(Console.scanString("Digite a origem: "), Console.scanString("Digite o destino: "),
-				DateFormater.localDate("Digite o horário de partida(dd/mm/aaaa): "), ConsultaAviao.EscolheAviao());
-		
-	}
-
-	public static void cadastrarVenda() {
-
+		switch (Menu.menuConsulta()) {
+		case 1:
+			ConsultaCliente.ListaTodos();
+			break;
+		case 2:
+			ConsultaAviao.ListaTodos();
+			break;
+		case 3:
+			ConsultaVoo.ListaTodos();
+			break;
+		case 4:
+			// ConsultaVenda.ListaTodos(); implementação a fazer
+			break;
+		default:
+			System.out.println("Opção inválida!");
+			break;
+		}
 	}
 
 }
