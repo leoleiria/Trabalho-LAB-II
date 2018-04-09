@@ -42,7 +42,9 @@ public class SistemaDeVendas {
 	}
 
 	public static void Consulta() {
-		// criar consulta
+		ConsultaCliente.ListaTodos();
+		ConsultaAviao.ListaTodos();
+		//ConsultaVoo.ListaTodos();
 	}
 
 	public static void cadastrarCliente() {
@@ -59,7 +61,7 @@ public class SistemaDeVendas {
 
 	public static void cadastrarVoo() {
 		Voo voo = new Voo(Console.scanString("Digite a origem: "), Console.scanString("Digite o destino: "),
-				DateFormater.localDate("Digite o horário de partida(dd/mm/aaaa): "), aviao);
+				DateFormater.localDate("Digite o horário de partida(dd/mm/aaaa): "), ConsultaAviao.EscolheAviao());
 		
 	}
 
