@@ -1,7 +1,19 @@
 
-public class SistemaDeVendas {
-	static boolean fim = true;
+import View.Menu;
+import Model.Cliente;
 
+public class SistemaDeVendas {
+	static int vVoo[]= new int [30];
+	static int contVoo = 0;
+	static Cliente vCliente[]= new Cliente [30];
+	static int contCli = 0;
+	static int vAviao[]= new int [30];
+	int contAvi = 0;
+	static int vBilhete[] = new int [30];
+	int contBil = 0;
+	
+	static boolean fim = true;
+	
 	public static void main(String[] args) {
 		do {
 			switch (Menu.menu()) {
@@ -24,7 +36,8 @@ public class SistemaDeVendas {
 	public static void Cadastro() {
 		switch (Menu.menuCadastro()) {
 		case 1:
-			Cadastro.cadastrarCliente();
+			vCliente[contCli++] = Cadastro.cadastrarCliente();
+			
 			break;
 		case 2:
 			Cadastro.cadastrarAviao();
@@ -44,7 +57,7 @@ public class SistemaDeVendas {
 	public static void Consulta() {
 		switch (Menu.menuConsulta()) {
 		case 1:
-			ConsultaCliente.ListaTodos();
+			ConsultaCliente();
 			break;
 		case 2:
 			ConsultaAviao.ListaTodos();
@@ -59,6 +72,15 @@ public class SistemaDeVendas {
 			System.out.println("Opção inválida!");
 			break;
 		}
+	}
+
+	private static void ConsultaCliente() {
+		for(int i=0;i<contCli; i++) {
+			if(vCliente[i] != null) {
+				System.out.println(vCliente[i].getNome());
+			}
+		}
+		
 	}
 
 }

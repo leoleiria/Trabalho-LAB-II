@@ -1,9 +1,16 @@
 
+import Model.Aviao;
+import Model.Cliente;
+import Model.Voo;
+import View.Console;
+
 public class Cadastro {
-	public static void cadastrarCliente() {
+	
+	public static Cliente cadastrarCliente() {
 		Cliente cliente = new Cliente(Console.scanInt("Digite o rg: "), Console.scanString("Digite o nome: "),
 				Console.scanString("Digite o numero de telefone: "));
 		System.out.println("__________________");
+		return cliente;
 	}
 
 	public static void cadastrarAviao() {

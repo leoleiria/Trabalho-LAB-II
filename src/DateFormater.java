@@ -2,6 +2,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import View.Console;
+
 public class DateFormater {
 	public static LocalDate localDate(String msg) {
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/mm/yyyy");

@@ -1,5 +1,8 @@
 import java.time.LocalDateTime;
 
+import Model.Cliente;
+import Model.Voo;
+
 public class Venda {
 	private static Cliente cliente;
 	private static Voo voo;

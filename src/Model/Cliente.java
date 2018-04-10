@@ -1,3 +1,4 @@
+package Model;
 
 public class Cliente {
 	private static int rg;
@@ -21,6 +22,12 @@ public class Cliente {
 	public static String getTelefone() {
 		return telefone;
 	}
+
+	@Override
+	public String toString() {
+		return getNome()+"    "+getRg()+"    "+getTelefone();
+
 	
+	}	
 
 }

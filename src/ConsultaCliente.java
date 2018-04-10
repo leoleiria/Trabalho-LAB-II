@@ -1,3 +1,4 @@
+import Model.Cliente;
 
 public class ConsultaCliente {
 	public static void ListaTodos() {

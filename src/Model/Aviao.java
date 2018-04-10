@@ -1,3 +1,4 @@
+package Model;
 
 public class Aviao {
 	private static String id;

@@ -1,3 +1,4 @@
+import Model.Voo;
 
 public class ConsultaVoo {
 	public static void ListaTodos() {

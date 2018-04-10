@@ -1,3 +1,4 @@
+import Model.Aviao;
 
 public class ConsultaAviao {
 	public static void ListaTodos() {
