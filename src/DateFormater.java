@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import View.Console;
+import view.Console;
 
 public class DateFormater {
 	public static LocalDate localDate(String msg) {

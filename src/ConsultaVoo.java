@@ -1,4 +1,4 @@
-import Model.Voo;
+import model.Voo;
 
 public class ConsultaVoo {
 	public static void ListaTodos() {

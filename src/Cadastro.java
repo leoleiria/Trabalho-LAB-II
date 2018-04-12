@@ -1,8 +1,8 @@
 
-import Model.Aviao;
-import Model.Cliente;
-import Model.Voo;
-import View.Console;
+import model.Aviao;
+import model.Cliente;
+import model.Voo;
+import view.Console;
 
 public class Cadastro {
 	

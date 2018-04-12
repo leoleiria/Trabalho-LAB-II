@@ -1,4 +1,4 @@
-import Model.Aviao;
+import model.Aviao;
 
 public class ConsultaAviao {
 	public static void ListaTodos() {

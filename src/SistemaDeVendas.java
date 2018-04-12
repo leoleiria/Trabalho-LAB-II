@@ -1,6 +1,6 @@
 
-import View.Menu;
-import Model.Cliente;
+import view.Menu;
+import model.Cliente;
 
 public class SistemaDeVendas {
 	static int vVoo[]= new int [30];

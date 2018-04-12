@@ -1,9 +1,9 @@
-package Model;
+package model;
 
 public class Cliente {
-	private static int rg;
-	private static String nome;
-	private static String telefone;
+	private int rg;
+	private String nome;
+	private String telefone;
 
 	public Cliente(int rg, String nome, String telefone) {
 		this.rg = rg;
@@ -11,15 +11,15 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	public static int getRg() {
+	public  int getRg() {
 		return rg;
 	}
 
-	public static String getNome() {
+	public  String getNome() {
 		return nome;
 	}
 
-	public static String getTelefone() {
+	public  String getTelefone() {
 		return telefone;
 	}
 
