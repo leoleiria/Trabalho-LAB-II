@@ -1,16 +1,16 @@
 
 import view.Menu;
-import model.Cliente;
+import model.*;
 
 public class SistemaDeVendas {
-	static int vVoo[]= new int [30];
+	static Voo vVoo[]= new Voo[30];
 	static int contVoo = 0;
-	static Cliente vCliente[]= new Cliente [30];
+	static Cliente vCliente[]= new Cliente[30];
 	static int contCli = 0;
-	static int vAviao[]= new int [30];
-	int contAvi = 0;
-	static int vBilhete[] = new int [30];
-	int contBil = 0;
+	static Aviao vAviao[]= new Aviao[30];
+	static int contAvi = 0;
+	static Bilhete vBilhete[] = new Bilhete[30];
+	static int contBil = 0;
 	
 	static boolean fim = true;
 	
@@ -40,13 +40,13 @@ public class SistemaDeVendas {
 			
 			break;
 		case 2:
-			Cadastro.cadastrarAviao();
+			vAviao[contAvi++] = Cadastro.cadastrarAviao();
 			break;
 		case 3:
-			Cadastro.cadastrarVoo();
+			vVoo[contVoo++] = Cadastro.cadastrarVoo();
 			break;
 		case 4:
-			Cadastro.cadastrarVenda();
+			vBilhete[contBil++] = Cadastro.cadastrarVenda();
 			break;
 		default:
 			System.out.println("Opção inválida!");
@@ -60,13 +60,13 @@ public class SistemaDeVendas {
 			ConsultaCliente();
 			break;
 		case 2:
-			ConsultaAviao.ListaTodos();
+			ConsultaAviao();
 			break;
 		case 3:
-			ConsultaVoo.ListaTodos();
+			ConsultaVoo();
 			break;
 		case 4:
-			// ConsultaVenda.ListaTodos(); implementação a fazer
+			ConsultaBilhete();
 			break;
 		default:
 			System.out.println("Opção inválida!");
@@ -77,10 +77,32 @@ public class SistemaDeVendas {
 	private static void ConsultaCliente() {
 		for(int i=0;i<contCli; i++) {
 			if(vCliente[i] != null) {
-				System.out.println(vCliente[i].getNome());
+				System.out.println(i+". "+vCliente[i].getNome());
 			}
 		}
-		
+	}
+	private static void ConsultaAviao() {
+		for(int i=0;i<contAvi; i++) {
+			if(vAviao[i] != null){
+				System.out.println(vAviao[i].getId()+". "+vAviao[i].getNome());
+			}
+		}
+	}
+	
+	private static void ConsultaVoo() {
+		for(int i=0;i<contVoo; i++) {
+			if(vVoo[i] != null) {
+				System.out.println(vVoo[i]);
+			}
+		}
+	}
+	
+	private static void ConsultaBilhete() {
+		for(int i=0;i<contBil; i++) {
+			if(vBilhete[i] != null) {
+				System.out.println(vBilhete[i]);
+			}
+		}
 	}
 
 }
