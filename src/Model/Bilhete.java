@@ -1,33 +1,34 @@
-package model;
-import model.*;
+package Model;
+
+import Model.*;
 
 public class Bilhete {
-		private String localizador;
-		private Cliente cliente;
-		private Voo voo;
-		// assento???
-		
-		public Bilhete (String localizador, Cliente cliente, Voo voo) {
-			this.localizador = localizador;
-			this.cliente = cliente;
-			this.voo = voo;
-		}
+	private String localizador;
+	private Cliente cliente;
+	private Voo voo;
+	// assento???
 
-		public String getLocalizador() {
-			return localizador;
-		}
+	public Bilhete(String localizador, Cliente cliente, Voo voo) {
+		this.localizador = localizador;
+		this.cliente = cliente;
+		this.voo = voo;
+	}
 
-		public Cliente getCliente() {
-			return cliente;
-		}
+	public String getLocalizador() {
+		return localizador;
+	}
 
-		public Voo getVoo() {
-			return voo;
-		}
+	public Cliente getCliente() {
+		return cliente;
+	}
 
-		@Override
-		public String toString() {
-			return "Bilhete [localizador=" + localizador + ", cliente=" + cliente + ", voo=" + voo + "]";
-		}
-		
+	public Voo getVoo() {
+		return voo;
+	}
+
+	@Override
+	public String toString() {
+		return "Localizador: " + localizador + ", cliente: " + cliente + ", voo: " + voo;
+	}
+
 }

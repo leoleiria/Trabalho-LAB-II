@@ -1,6 +1,6 @@
 
-import view.Menu;
-import model.*;
+import Model.*;
+import View.Menu;
 
 public class SistemaDeVendas {
 	static Voo vVoo[]= new Voo[30];
@@ -37,7 +37,6 @@ public class SistemaDeVendas {
 		switch (Menu.menuCadastro()) {
 		case 1:
 			vCliente[contCli++] = Cadastro.cadastrarCliente();
-			
 			break;
 		case 2:
 			vAviao[contAvi++] = Cadastro.cadastrarAviao();
@@ -77,14 +76,14 @@ public class SistemaDeVendas {
 	private static void ConsultaCliente() {
 		for(int i=0;i<contCli; i++) {
 			if(vCliente[i] != null) {
-				System.out.println(i+". "+vCliente[i].getNome());
+				System.out.println(i+". "+vCliente[i]);
 			}
 		}
 	}
 	private static void ConsultaAviao() {
 		for(int i=0;i<contAvi; i++) {
 			if(vAviao[i] != null){
-				System.out.println(vAviao[i].getId()+". "+vAviao[i].getNome());
+				System.out.println(vAviao[i].getId()+". "+vAviao[i]);
 			}
 		}
 	}

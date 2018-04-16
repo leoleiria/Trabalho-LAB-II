@@ -1,4 +1,4 @@
-package model;
+package Model;
 import java.time.LocalDate;
 
 public class Voo {
@@ -38,8 +38,8 @@ public class Voo {
 
 	@Override
 	public String toString() {
-		return "Voo [prefixo=" + prefixo + ", origem=" + origem + ", destino=" + destino + ", horario=" + horario
-				+ ", aviao=" + aviao.getNome() + "]";
+		return "Prefixo: " + prefixo + ", origem: " + origem + ", destino: " + destino + ", horario: " + horario
+				+ ", aviao: " + aviao.getNome();
 	}
 
 	

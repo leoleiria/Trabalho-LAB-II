@@ -1,27 +1,31 @@
-package model;
+package Model;
 
 public class Aviao {
-	private static String id;
-	private static String nome;
-	private static int nroAssentos;
-	
+	private String id;
+	private String nome;
+	private int nroAssentos;
+
 	public Aviao(String id, String nome, int nroAssentos) {
 		this.id = id;
 		this.nome = nome;
 		this.nroAssentos = nroAssentos;
 	}
 
-	public static String getId() {
+	public String getId() {
 		return id;
 	}
 
-	public static String getNome() {
+	public String getNome() {
 		return nome;
 	}
 
-	public static int getNroAssentos() {
+	public int getNroAssentos() {
 		return nroAssentos;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Id: " + id + ", Nome: " + nome + ", Nro de assentos: " + nroAssentos;
+	}
+
 }

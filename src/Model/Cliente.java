@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 public class Cliente {
 	private int rg;
@@ -11,23 +11,22 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	public  int getRg() {
+	public int getRg() {
 		return rg;
 	}
 
-	public  String getNome() {
+	public String getNome() {
 		return nome;
 	}
 
-	public  String getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
 	@Override
 	public String toString() {
-		return getNome()+"    "+getRg()+"    "+getTelefone();
+		return "Nome: " + nome + ", Rg: " + rg + ", Telefone: " + telefone;
 
-	
-	}	
+	}
 
 }

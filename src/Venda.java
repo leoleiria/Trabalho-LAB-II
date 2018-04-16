@@ -1,26 +1,26 @@
 import java.time.LocalDateTime;
 
-import model.Cliente;
-import model.Voo;
+import Model.Cliente;
+import Model.Voo;
 
 public class Venda {
-	private static model.Cliente cliente;
-	private static model.Voo voo;
+	private static Model.Cliente cliente;
+	private static Model.Voo voo;
 	private static LocalDateTime dataCompra;
 	private static int assentos;
 	
-	public Venda(model.Cliente cliente, model.Voo voo, LocalDateTime dataCompra, int assentos) {
+	public Venda(Model.Cliente cliente, Model.Voo voo, LocalDateTime dataCompra, int assentos) {
 		this.cliente = cliente;
 		this.voo = voo;
 		this.dataCompra = dataCompra;
 		this.assentos = assentos;
 	}
 
-	public static model.Cliente getCliente() {
+	public static Model.Cliente getCliente() {
 		return cliente;
 	}
 
-	public static model.Voo getVoo() {
+	public static Model.Voo getVoo() {
 		return voo;
 	}
 

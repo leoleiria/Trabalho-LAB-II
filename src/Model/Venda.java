@@ -1,36 +1,39 @@
-package model;
+package Model;
 import java.time.LocalDateTime;
 
-import model.Cliente;
-import model.Voo;
+import Model.Cliente;
+import Model.Voo;
 
 public class Venda {
-	private static model.Cliente cliente;
-	private static model.Voo voo;
-	private static LocalDateTime dataCompra;
-	private static int assentos;
+	private Model.Cliente cliente;
+	private Model.Voo voo;
+	private LocalDateTime dataCompra;
+	private int assentos;
 	
-	public Venda(model.Cliente cliente, model.Voo voo, LocalDateTime dataCompra, int assentos) {
+	public Venda(Model.Cliente cliente, Model.Voo voo, LocalDateTime dataCompra, int assentos) {
 		this.cliente = cliente;
 		this.voo = voo;
 		this.dataCompra = dataCompra;
 		this.assentos = assentos;
 	}
 
-	public static model.Cliente getCliente() {
+	public Model.Cliente getCliente() {
 		return cliente;
 	}
 
-	public static model.Voo getVoo() {
+	public Model.Voo getVoo() {
 		return voo;
 	}
 
-	public static LocalDateTime getDataCompra() {
+	public LocalDateTime getDataCompra() {
 		return dataCompra;
 	}
 
-	public static int getAssentos() {
+	public int getAssentos() {
 		return assentos;
 	}
-	 
+	@Override
+	public String toString() {
+		return "Cliente: " + cliente.getNome() + ", Voo: " + voo.getPrefixo() + ", Data da compra: " + dataCompra+ ", Assentos: " + assentos;
+	}
 }
