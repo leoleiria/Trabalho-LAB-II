@@ -1,6 +1,6 @@
 
-import Model.*;
-import View.Menu;
+import model.*;
+import view.Menu;
 
 public class SistemaDeVendas {
 	static Voo vVoo[]= new Voo[30];

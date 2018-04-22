@@ -1,6 +1,6 @@
-package Model;
+package model;
 
-import Model.*;
+import model.*;
 
 public class Bilhete {
 	private String localizador;

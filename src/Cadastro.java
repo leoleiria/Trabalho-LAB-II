@@ -1,8 +1,8 @@
 
 import java.util.Random;
 
-import Model.*;
-import View.Console;
+import model.*;
+import view.Console;
 
 public class Cadastro {
 	

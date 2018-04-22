@@ -1,10 +1,10 @@
 import java.util.Random;
 
-import Model.Aviao;
-import Model.Bilhete;
-import Model.Cliente;
-import Model.Voo;
-import View.Console;
+import model.Aviao;
+import model.Bilhete;
+import model.Cliente;
+import model.Voo;
+import view.Console;
 
 public class Seleciona {
 	static Aviao selecionaAviao() {
