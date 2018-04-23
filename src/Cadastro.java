@@ -7,26 +7,41 @@ import view.Console;
 public class Cadastro {
 	
 	public static Cliente cadastrarCliente() {
-		Cliente cliente = new Cliente(Console.scanInt("Digite o rg: "), Console.scanString("Digite o nome: "),
+		Cliente cliente;
+		do {
+		cliente = new Cliente(Console.scanInt("Digite o rg: "), Console.scanString("Digite o nome: "),
 				Console.scanString("Digite o numero de telefone: "));
+		}while(ConsultaDuplicidade.cliente(cliente)==false);
 		System.out.println("__________________");
 		return cliente;
 	}
 
 	public static Aviao cadastrarAviao() {
-		Aviao aviao = new Aviao(Console.scanString("Digite o ID do avião: "),
+		Aviao aviao;
+		do{
+			aviao= new Aviao(Console.scanString("Digite o ID do avião: "),
 				Console.scanString("Digite o nome do avião: "), Console.scanInt("Digite a quantidade de assentos: "));
+		}while(ConsultaDuplicidade.aviao(aviao)==false);
+			//testar campos de id e nome do aviao
 		System.out.println("__________________");
 		return aviao;
 	}
 
 	public static Voo cadastrarVoo() {
-		Voo voo = new Voo(Console.scanString("Digite o prefixo: "),Console.scanString("Digite a origem: "), Console.scanString("Digite o destino: "),
+		Voo voo;
+		do {
+		voo= new Voo(Console.scanString("Digite o prefixo: "),Console.scanString("Digite a origem: "), Console.scanString("Digite o destino: "),
 				DateFormater.localDate("Digite o horário de partida(dd/mm/aaaa): "), Seleciona.selecionaAviao());
+		}while(ConsultaDuplicidade.voo(voo)==false);
+		//testar campos de prefixo e aviao
 		return voo;
 	}
 	public static Bilhete cadastrarVenda() {
-		Bilhete bilhete = new Bilhete(localizador(6),Seleciona.selecionaCliente(),Seleciona.selecionaVoo());
+		Bilhete bilhete;
+		do {
+		bilhete = new Bilhete(localizador(6),Seleciona.selecionaCliente(),Seleciona.selecionaVoo());
+		}while(ConsultaDuplicidade.bilhete(bilhete)==false);
+		//testar localizador
 		return bilhete;
 
 	}
