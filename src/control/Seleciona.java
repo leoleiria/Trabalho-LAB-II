@@ -1,9 +1,11 @@
+package control;
 import java.util.Random;
 
 import model.Aviao;
 import model.Bilhete;
 import model.Cliente;
 import model.Voo;
+import sistemaDeVendas.SistemaDeVendas;
 import view.Console;
 
 public class Seleciona {

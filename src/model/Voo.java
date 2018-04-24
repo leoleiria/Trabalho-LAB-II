@@ -1,18 +1,18 @@
 package model;
-import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Voo {
 	private String prefixo;
 	private String origem;
 	private String destino;
-	private LocalDate horario;
+	private LocalTime time;
 	private Aviao aviao;
 	
-	public Voo(String prefixo, String origem, String destino, LocalDate horario, Aviao aviao) {
+	public Voo(String prefixo, String origem, String destino, LocalTime time, Aviao aviao) {
 		this.prefixo = prefixo;
 		this.origem = origem;
 		this.destino = destino;
-		this.horario = horario;
+		this.time = time;
 		this.aviao = aviao;
 	}
 
@@ -28,8 +28,8 @@ public class Voo {
 		return destino;
 	}
 
-	public LocalDate getHorario() {
-		return horario;
+	public LocalTime getData() {
+		return time;
 	}
 
 	public Aviao getAviao() {
@@ -38,7 +38,7 @@ public class Voo {
 
 	@Override
 	public String toString() {
-		return "Prefixo: " + prefixo + ", origem: " + origem + ", destino: " + destino + ", horario: " + horario
+		return "Prefixo: " + prefixo + ", origem: " + origem + ", destino: " + destino + ", Horario: " + time
 				+ ", aviao: " + aviao.getNome();
 	}
 

@@ -1,22 +1,26 @@
+package sistemaDeVendas;
 
+import control.Cadastro;
+import control.consulta;
 import model.*;
 import view.Menu;
 
 public class SistemaDeVendas {
-	static Voo vVoo[]= new Voo[30];
-	static int contVoo = 0;
-	static Cliente vCliente[]= new Cliente[30];
-	static int contCli = 0;
-	static Aviao vAviao[]= new Aviao[30];
-	static int contAvi = 0;
-	static Bilhete vBilhete[] = new Bilhete[30];
-	static int contBil = 0;
+	public static Voo vVoo[]= new Voo[30];
+	public static int contVoo = 0;
+	public static Cliente vCliente[]= new Cliente[30];
+	public static int contCli = 0;
+	public static Aviao vAviao[]= new Aviao[30];
+	public static int contAvi = 0;
+	public static Bilhete vBilhete[] = new Bilhete[30];
+	public static int contBil = 0;
 	
 	static boolean fim = true;
 	
 	public static void main(String[] args) {
 		do {
-			switch (Menu.menu()) {
+			System.out.println("_______________________________");
+		switch (Menu.menu()) {
 			case 1:
 				Cadastro();
 				break;
@@ -34,6 +38,7 @@ public class SistemaDeVendas {
 	}
 
 	public static void Cadastro() {
+		System.out.println("_______________________________");
 		switch (Menu.menuCadastro()) {
 		case 1:
 			vCliente[contCli++] = Cadastro.cadastrarCliente();
@@ -54,18 +59,19 @@ public class SistemaDeVendas {
 	}
 
 	public static void Consulta() {
+		System.out.println("_______________________________");
 		switch (Menu.menuConsulta()) {
 		case 1:
-			ConsultaCliente();
+			consulta.ConsultaCliente();
 			break;
 		case 2:
-			ConsultaAviao();
+			consulta.ConsultaAviao();
 			break;
 		case 3:
-			ConsultaVoo();
+			consulta.ConsultaVoo();
 			break;
 		case 4:
-			ConsultaBilhete();
+			consulta.ConsultaBilhete();
 			break;
 		default:
 			System.out.println("Opção inválida!");
@@ -73,35 +79,5 @@ public class SistemaDeVendas {
 		}
 	}
 
-	private static void ConsultaCliente() {
-		for(int i=0;i<contCli; i++) {
-			if(vCliente[i] != null) {
-				System.out.println(i+". "+vCliente[i]);
-			}
-		}
-	}
-	private static void ConsultaAviao() {
-		for(int i=0;i<contAvi; i++) {
-			if(vAviao[i] != null){
-				System.out.println(vAviao[i].getId()+". "+vAviao[i]);
-			}
-		}
-	}
 	
-	private static void ConsultaVoo() {
-		for(int i=0;i<contVoo; i++) {
-			if(vVoo[i] != null) {
-				System.out.println(vVoo[i]);
-			}
-		}
-	}
-	
-	private static void ConsultaBilhete() {
-		for(int i=0;i<contBil; i++) {
-			if(vBilhete[i] != null) {
-				System.out.println(vBilhete[i]);
-			}
-		}
-	}
-
 }
