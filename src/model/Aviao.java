@@ -23,6 +23,10 @@ public class Aviao {
 		return nroAssentos;
 	}
 
+	public void setNroAssentos(int nroAssentos) {
+		this.nroAssentos = nroAssentos;
+	}
+
 	@Override
 	public String toString() {
 		return "Id: " + id + ", Nome: " + nome + ", Nro de assentos: " + nroAssentos;

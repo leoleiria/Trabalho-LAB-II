@@ -12,8 +12,10 @@ public class Cadastro {
 		System.out.println("Cadstro de Cliente:");
 		Cliente cliente;
 		do {
-			cliente = new Cliente(Console.scanInt("Digite o rg: "), Console.scanString("Digite o nome: "),
+			do {
+				cliente = new Cliente(Console.scanInt("Digite o rg: "), Console.scanString("Digite o nome: "),
 					Console.scanString("Digite o numero de telefone: "));
+			}while (cliente.getNome().isEmpty() || cliente.getTelefone().isEmpty());
 		} while (ConsultaDuplicidade.cliente(cliente) == false);
 		return cliente;
 	}
@@ -51,7 +53,7 @@ public class Cadastro {
 			bilhete = new Bilhete(localizador(6), Seleciona.selecionaCliente(), Seleciona.selecionaVoo(),
 					DateFormater.localDateTime());
 		} while (ConsultaDuplicidade.bilhete(bilhete) == false);
-
+	bilhete.getVoo().getAviao().setNroAssentos((bilhete.getVoo().getAviao().getNroAssentos())-1);
 		return bilhete;
 
 	}
