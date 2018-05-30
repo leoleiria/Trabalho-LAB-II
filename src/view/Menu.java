@@ -5,6 +5,8 @@ public class Menu {
 		System.out.println("Menu Principal:");
 		System.out.println("[1] Cadastro");
 		System.out.println("[2] Consultar");
+		System.out.println("[3] Alterar");
+		System.out.println("[4] Deletar");
 		System.out.println("[0] Sair"); 
 		return Console.scanInt("	Opção: ");
 	}
@@ -16,7 +18,7 @@ public class Menu {
 		System.out.println("[4] Venda");
 		return Console.scanInt("	Opção: ");
 	}
-	
+
 	public static int menuConsulta() {
 		System.out.println("Menu Consultas:");
 		System.out.println("[1] Cliente");
@@ -25,4 +27,25 @@ public class Menu {
 		System.out.println("[4] Venda");
 		return Console.scanInt("	Opção: ");
 	}
+
+	public static int menuAltera() {
+		System.out.println("Menu de Alteração:");
+		System.out.println("[1] Cliente");
+		System.out.println("[2] Avião");
+		System.out.println("[3] Vôo");
+		System.out.println("[4] Venda");
+		return Console.scanInt("	Opção: ");
+	}
+
+	public static int menuDeleta() {
+		System.out.println("Menu Deletar:");
+		System.out.println("[1] Cliente");
+		System.out.println("[2] Avião");
+		System.out.println("[3] Vôo");
+		System.out.println("[4] Venda");
+		return Console.scanInt("	Opção: ");
+	}
+	
+	
+	
 }

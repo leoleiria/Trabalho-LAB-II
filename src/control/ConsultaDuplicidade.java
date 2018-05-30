@@ -1,9 +1,16 @@
 package control;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import model.*;
 import sistemaDeVendas.SistemaDeVendas;
 
 public class ConsultaDuplicidade {
 	public static boolean cliente(Cliente sample) {
+		final String queryCheck = "SELECT * from messages WHERE msgid = ?";
+		final PreparedStatement ps = conn.prepareStatement(queryCheck);
+		ps.setString(1, msgid);
+		final ResultSet resultSet = ps.executeQuery();
 		for (int x = 0; x < SistemaDeVendas.vCliente.length; x++) {
 			if (SistemaDeVendas.vCliente[x] != null) {
 				if (sample.getRg() == SistemaDeVendas.vCliente[x].getRg()) {

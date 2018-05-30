@@ -1,7 +1,9 @@
 package sistemaDeVendas;
 
 import control.Cadastro;
+import control.altera;
 import control.consulta;
+import control.deleta;
 import model.*;
 import view.Menu;
 
@@ -27,6 +29,12 @@ public class SistemaDeVendas {
 			case 2:
 				Consulta();
 				break;
+			case 3:
+				Altera();
+				break;
+			case 4:	
+				Deletar();
+				break;
 			case 0:
 				fim = false;
 				break;
@@ -41,7 +49,7 @@ public class SistemaDeVendas {
 		System.out.println("_______________________________");
 		switch (Menu.menuCadastro()) {
 		case 1:
-			vCliente[contCli++] = Cadastro.cadastrarCliente();
+			Cadastro.cadastrarCliente();
 			break;
 		case 2:
 			vAviao[contAvi++] = Cadastro.cadastrarAviao();
@@ -78,6 +86,30 @@ public class SistemaDeVendas {
 			break;
 		}
 	}
-
+	
+	public static void Altera() {
+		System.out.println("_______________________________");
+		switch (Menu.menuAltera()) {
+		case 1:
+			altera.AlterarCliente();
+			break;
+		default:
+			System.out.println("Opção inválida!");
+			break;
+		}
+	}
+	
+	public static void Deletar() {
+		System.out.println("_______________________________");
+		switch (Menu.menuDeleta()) {
+		case 1:
+			deleta.DeletarCliente();
+			break;
+		default:
+			System.out.println("Opção inválida!");
+			break;
+		}
+	}
+	
 	
 }
