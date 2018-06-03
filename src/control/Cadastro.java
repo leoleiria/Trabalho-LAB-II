@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalTime;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -17,7 +18,7 @@ public class Cadastro {
 		String nome;
 		String telefone;
 		System.out.println("_______________________________");
-		System.out.println("Cadstro de Cliente:");
+		System.out.println("Cadastro de Cliente:");
 		do {
 			rg = Console.scanInt("Digite o rg: ");
 			nome = Console.scanString("Digite o nome: ");
@@ -27,11 +28,9 @@ public class Cadastro {
 			Class.forName("org.postgresql.Driver");
 			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
 					"postgres", "admin");
-			String sql = "INSERT INTO cliente(rg,nomecliente,telefone) " + "VALUES ('" + rg + "','" + nome + "','" + telefone
-					+ "')";
-			Statement comando = conexao.createStatement();
-			int numLinhas = comando.executeUpdate(sql);
-			System.out.println("Numero de Linhas: " + numLinhas);
+			String sql = "INSERT INTO cliente(rg,nomecliente,telefone) " + "VALUES ('" + rg + "','" + nome + "','"
+					+ telefone + "')";
+			conexao.createStatement().executeUpdate(sql);
 			conexao.close();
 
 		} catch (SQLException e) {
@@ -43,29 +42,62 @@ public class Cadastro {
 		}
 	}
 
-	public static Aviao cadastrarAviao() {
+	public static void cadastrarAviao() {
+		String nome;
+		int assentos;
 		System.out.println("_______________________________");
-		System.out.println("Cadstro de Avião:");
-		Aviao aviao;
+		System.out.println("Cadastro de Avião:");
 		do {
-			aviao = new Aviao(Console.scanString("Digite o ID do avião: "),
-					Console.scanString("Digite o nome do avião: "),
-					Console.scanInt("Digite a quantidade de assentos: "));
-		} while (ConsultaDuplicidade.aviao(aviao) == false);
-		return aviao;
+			nome = Console.scanString("Digite o nome: ");
+			assentos = Console.scanInt("Digite a quantidade de assentos: ");
+		} while (nome.isEmpty() || assentos == 0);
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
+					"postgres", "admin");
+			String sql = "INSERT INTO aviao(nome, assentos) " + "VALUES ('" + nome + "','" + assentos + "')";
+			conexao.createStatement().executeUpdate(sql);
+			conexao.close();
+
+		} catch (SQLException e) {
+			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
+			return;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public static Voo cadastrarVoo() {
+	public static void cadastrarVoo() {
+		String prefixo, origem, destino;
+		LocalTime horario;
+		int idaviao;
 		System.out.println("_______________________________");
-		System.out.println("Cadstro de Vôo:");
-		Voo voo;
+		System.out.println("Cadastro de Voo:");
 		do {
-			voo = new Voo(Console.scanString("Digite o prefixo: "), Console.scanString("Digite a origem: "),
-					Console.scanString("Digite o destino: "),
-					DateFormater.localTime("Digite o horário de partida(hh:mm): "), Seleciona.selecionaAviao());
-		} while (ConsultaDuplicidade.voo(voo) == false || voo.getData() == null);
+			prefixo = Console.scanString("Digite o prefixo do voo: ");
+			origem = Console.scanString("Digite a origem: ");
+			destino = Console.scanString("Digite o destino: ");
+			horario = DateFormater.localTime("Digite o horário de partida(hh:mm): ");
+			idaviao = Console.scanInt("Digite o id do avião desejado: ");
+		} while (prefixo.isEmpty() || origem.isEmpty() || destino.isEmpty());
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
+					"postgres", "admin");
+			String sql = "INSERT INTO voo(prefixo, origem, destino, horario, aviao) " + "VALUES ('" + prefixo + "','"
+					+ origem + "','" + destino + "','" + horario + "','" + idaviao + "')";
+			conexao.createStatement().executeUpdate(sql);
+			conexao.close();
 
-		return voo;
+		} catch (SQLException e) {
+			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
+			return;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public static Bilhete cadastrarVenda() {

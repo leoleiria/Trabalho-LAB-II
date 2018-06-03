@@ -52,10 +52,10 @@ public class SistemaDeVendas {
 			Cadastro.cadastrarCliente();
 			break;
 		case 2:
-			vAviao[contAvi++] = Cadastro.cadastrarAviao();
+			Cadastro.cadastrarAviao();
 			break;
 		case 3:
-			vVoo[contVoo++] = Cadastro.cadastrarVoo();
+			Cadastro.cadastrarVoo();
 			break;
 		case 4:
 			vBilhete[contBil++] = Cadastro.cadastrarVenda();
@@ -93,6 +93,12 @@ public class SistemaDeVendas {
 		case 1:
 			altera.AlterarCliente();
 			break;
+		case 2: 
+			altera.AlterarAviao();
+			break;
+		case 3:
+			altera.AlterarVoo();
+			break;
 		default:
 			System.out.println("Opção inválida!");
 			break;
@@ -104,6 +110,12 @@ public class SistemaDeVendas {
 		switch (Menu.menuDeleta()) {
 		case 1:
 			deleta.DeletarCliente();
+			break;
+		case 2:
+			deleta.DeletarAviao();
+			break;
+		case 3:
+			deleta.DeletarVoo();
 			break;
 		default:
 			System.out.println("Opção inválida!");
