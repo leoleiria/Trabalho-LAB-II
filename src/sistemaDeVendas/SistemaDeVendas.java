@@ -58,7 +58,7 @@ public class SistemaDeVendas {
 			Cadastro.cadastrarVoo();
 			break;
 		case 4:
-			vBilhete[contBil++] = Cadastro.cadastrarVenda();
+			Cadastro.cadastrarVenda();
 			break;
 		default:
 			System.out.println("Opção inválida!");
