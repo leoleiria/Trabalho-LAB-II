@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import model.DateFormater;
@@ -98,6 +99,46 @@ public class altera {
 			String sqlupdate = "UPDATE voo SET prefixo = '" + novoprefixo + "', origem = '" + novaorigem
 					+ "', destino = '" + novodestino + "', horario = '" + novohorario + "', aviao= '" + novoaviao
 					+ "'WHERE id = " + id;
+			conexao.prepareStatement(sqlupdate).executeUpdate();
+			conexao.close();
+
+		} catch (SQLException e) {
+			System.out.println("Connection Failed! Check output console");
+			e.printStackTrace();
+			return;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void AlterarBilhete() {
+		try {
+			String id = Console.scanString("Digite ID do voo desejado: ");
+			Class.forName("org.postgresql.Driver");
+			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
+					"postgres", "admin");
+			String sql = "SELECT bilhete.*,cliente.nomecliente,voo.prefixo FROM bilhete,cliente,voo where bilhete.idvoo = voo.id and cliente.id = bilhete.idcliente and bilhete.id ='"
+					+ id + "'";
+			PreparedStatement comando = conexao.prepareStatement(sql);
+			ResultSet resultado = comando.executeQuery();
+			while (resultado.next()) {
+				System.out.print("ID: " + resultado.getInt("id"));
+				System.out.print(" // Localizador: " + resultado.getString("localizador"));
+				System.out.print(" // Cliente: " + resultado.getString("nomecliente"));
+				System.out.print(" // Vôo: " + resultado.getString("prefixo"));
+				System.out.println(" // Horário da Venda: " + resultado.getString("datahora"));
+			}
+			int novocliente;
+			int novovoo;
+			do {
+				consulta.ConsultaCliente();
+				novocliente = Console.scanInt("Digite o ID do novo cliente: ");
+				consulta.ConsultaVoo();
+				novovoo = Console.scanInt("Digite o Id do novo Voo: ");
+			} while (novocliente == 0 || novovoo == 0);
+			LocalDateTime novodataHora = DateFormater.localDateTime().now();
+			int novoaviao = Console.scanInt("Digite o ID do novo avião: ");
+			String sqlupdate = "UPDATE bilhete SET idcliente = '" + novocliente + "', idvoo = '" + novovoo + "', horario = '" + novodataHora + "'WHERE id = " + id;
 			conexao.prepareStatement(sqlupdate).executeUpdate();
 			conexao.close();
 

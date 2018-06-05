@@ -109,19 +109,20 @@ public class Cadastro {
 		LocalDateTime dataHora;
 		System.out.println("_______________________________");
 		System.out.println("Venda de Bilhete:");
-	do {	localizadorFinal = localizador(6);
-		consulta.ConsultaCliente();
-		cliente = Console.scanInt("Digite o ID do cliente:");
-		consulta.ConsultaVoo();
-		voo = Console.scanInt("Digite o Id o Voo");
-		dataHora = DateFormater.localDateTime().now();
-	}while(cliente ==0 || voo == 0);
+		do {
+			localizadorFinal = localizador(6);
+			consulta.ConsultaCliente();
+			cliente = Console.scanInt("Digite o ID do cliente:");
+			consulta.ConsultaVoo();
+			voo = Console.scanInt("Digite o Id o Voo: ");
+			dataHora = DateFormater.localDateTime().now();
+		} while (cliente == 0 || voo == 0);
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
 					"postgres", "admin");
-			String sql = "INSERT INTO bilhete(localizador, idcliente, idvoo, horacompra) " + "VALUES ('" + localizadorFinal + "','"
-					+ cliente + "','" + voo + "','" + dataHora +"')";
+			String sql = "INSERT INTO bilhete(localizador, idcliente, idvoo, horacompra) " + "VALUES ('"
+					+ localizadorFinal + "','" + cliente + "','" + voo + "','" + dataHora + "')";
 			conexao.createStatement().executeUpdate(sql);
 			conexao.close();
 
@@ -146,6 +147,5 @@ public class Cadastro {
 		}
 		return sb.toString();
 	}
-
 
 }

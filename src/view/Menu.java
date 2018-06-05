@@ -15,7 +15,7 @@ public class Menu {
 		System.out.println("[1] Cliente");
 		System.out.println("[2] Avião");
 		System.out.println("[3] Vôo");
-		System.out.println("[4] Venda");
+		System.out.println("[4] Bilhete");
 		return Console.scanInt("	Opção: ");
 	}
 
@@ -24,7 +24,7 @@ public class Menu {
 		System.out.println("[1] Cliente");
 		System.out.println("[2] Avião");
 		System.out.println("[3] Vôo");
-		System.out.println("[4] Venda");
+		System.out.println("[4] Bilhete");
 		return Console.scanInt("	Opção: ");
 	}
 
@@ -33,7 +33,7 @@ public class Menu {
 		System.out.println("[1] Cliente");
 		System.out.println("[2] Avião");
 		System.out.println("[3] Vôo");
-		System.out.println("[4] Venda");
+		System.out.println("[4] Bilhete");
 		return Console.scanInt("	Opção: ");
 	}
 
@@ -42,7 +42,7 @@ public class Menu {
 		System.out.println("[1] Cliente");
 		System.out.println("[2] Avião");
 		System.out.println("[3] Vôo");
-		System.out.println("[4] Venda");
+		System.out.println("[4] Bilhete");
 		return Console.scanInt("	Opção: ");
 	}
 	
