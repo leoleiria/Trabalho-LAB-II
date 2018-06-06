@@ -105,4 +105,30 @@ public class deleta {
 			e.printStackTrace();
 		}
 	}
+
+	public static void DeletarBilhete() {
+		consulta.ConsultaBilhete();
+		String id = Console.scanString("Digite ID do bilhete desejado: ");
+		String sql = "SELECT bilhete.*,cliente.nomecliente,voo.prefixo FROM bilhete,cliente,voo where bilhete.idvoo = voo.id and cliente.id = bilhete.idcliente and bilhete.id ='"
+				+ id + "'";
+		ResultSet resultado = RequestDB.consulta(sql);
+		try {
+			while (resultado.next()) {
+				System.out.print("ID: " + resultado.getInt("id"));
+				System.out.print(" // Localizador: " + resultado.getString("localizador"));
+				System.out.print(" // Cliente: " + resultado.getString("nomecliente"));
+				System.out.print(" // Vôo: " + resultado.getString("prefixo"));
+				System.out.println(" // Horário da Venda: " + resultado.getString("datahora"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Deletar este voo?\n[1] Sim\n[2] Não");
+		int resposta = Console.scanInt("Opção > ");
+		if (resposta == 1) {
+			String sqldelete = "DELETE FROM bilhete WHERE id=" + id;
+			RequestDB.update(sqldelete);
+		}
+
+	}
 }

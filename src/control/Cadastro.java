@@ -25,22 +25,9 @@ public class Cadastro {
 			nome = Console.scanString("Digite o nome: ");
 			telefone = Console.scanString("Digite o numero de telefone: ");
 		} while (nome.isEmpty() || telefone.isEmpty());
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
-					"postgres", "admin");
-			String sql = "INSERT INTO cliente(rg,nomecliente,telefone) " + "VALUES ('" + rg + "','" + nome + "','"
-					+ telefone + "')";
-			conexao.createStatement().executeUpdate(sql);
-			conexao.close();
-
-		} catch (SQLException e) {
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-			return;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		String sql = "INSERT INTO cliente(rg,nomecliente,telefone) " + "VALUES ('" + rg + "','" + nome + "','"
+				+ telefone + "')";
+		RequestDB.update(sql);
 	}
 
 	public static void cadastrarAviao() {
@@ -52,21 +39,9 @@ public class Cadastro {
 			nome = Console.scanString("Digite o nome: ");
 			assentos = Console.scanInt("Digite a quantidade de assentos: ");
 		} while (nome.isEmpty() || assentos == 0);
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
-					"postgres", "admin");
-			String sql = "INSERT INTO aviao(nome, assentos) " + "VALUES ('" + nome + "','" + assentos + "')";
-			conexao.createStatement().executeUpdate(sql);
-			conexao.close();
 
-		} catch (SQLException e) {
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-			return;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		String sql = "INSERT INTO aviao(nome, assentos) " + "VALUES ('" + nome + "','" + assentos + "')";
+		RequestDB.update(sql);
 	}
 
 	public static void cadastrarVoo() {
@@ -83,22 +58,9 @@ public class Cadastro {
 			consulta.ConsultaAviao();
 			idaviao = Console.scanInt("Digite o id do avião desejado: ");
 		} while (prefixo.isEmpty() || origem.isEmpty() || destino.isEmpty());
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
-					"postgres", "admin");
 			String sql = "INSERT INTO voo(prefixo, origem, destino, horario, aviao) " + "VALUES ('" + prefixo + "','"
 					+ origem + "','" + destino + "','" + horario + "','" + idaviao + "')";
-			conexao.createStatement().executeUpdate(sql);
-			conexao.close();
-
-		} catch (SQLException e) {
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-			return;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+			RequestDB.update(sql);
 
 	}
 
@@ -114,26 +76,12 @@ public class Cadastro {
 			consulta.ConsultaCliente();
 			cliente = Console.scanInt("Digite o ID do cliente:");
 			consulta.ConsultaVoo();
-			voo = Console.scanInt("Digite o Id o Voo: ");
+			voo = Console.scanInt("Digite o Id o Voo");
 			dataHora = DateFormater.localDateTime().now();
 		} while (cliente == 0 || voo == 0);
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
-					"postgres", "admin");
 			String sql = "INSERT INTO bilhete(localizador, idcliente, idvoo, horacompra) " + "VALUES ('"
 					+ localizadorFinal + "','" + cliente + "','" + voo + "','" + dataHora + "')";
-			conexao.createStatement().executeUpdate(sql);
-			conexao.close();
-
-		} catch (SQLException e) {
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-			return;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
+			RequestDB.update(sql);
 	}
 
 	private static Random rand = new Random();
