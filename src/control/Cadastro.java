@@ -51,23 +51,13 @@ public class Cadastro {
 			nome = Console.scanString("Digite o nome: ");
 			assentos = Console.scanInt("Digite a quantidade de assentos: ");
 		} while (nome.isEmpty() || assentos == 0);
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
-					"postgres", "admin");
-			String sql = "INSERT INTO aviao(nome, assentos) " + "VALUES ('" + nome + "','" + assentos + "')";
-			conexao.createStatement().executeUpdate(sql);
-			conexao.close();
-
-		} catch (SQLException e) {
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-			return;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		
+		Aviao a = new Aviao(nome, assentos);
+		AviaoDAO dao = new AviaoDAO();
+		dao.create(a);
 	}
-
+		
+		
 	public static void cadastrarVoo() {
 		String prefixo, origem, destino;
 		LocalTime horario;
@@ -100,18 +90,18 @@ public class Cadastro {
 		
 	}
 
-	public static Bilhete cadastrarVenda() {
-		System.out.println("_______________________________");
-		System.out.println("Emissão de Bilhete:");
-		Bilhete bilhete;
-		do {
-			bilhete = new Bilhete(localizador(6), Seleciona.selecionaCliente(), Seleciona.selecionaVoo(),
-					DateFormater.localDateTime());
-		} while (ConsultaDuplicidade.bilhete(bilhete) == false);
-		bilhete.getVoo().getAviao().setNroAssentos((bilhete.getVoo().getAviao().getNroAssentos()) - 1);
-		return bilhete;
-
-	}
+//	public static Bilhete cadastrarVenda() {
+//		System.out.println("_______________________________");
+//		System.out.println("Emissão de Bilhete:");
+//		Bilhete bilhete;
+//		do {
+//			bilhete = new Bilhete(localizador(6), Seleciona.selecionaCliente(), Seleciona.selecionaVoo(),
+//					DateFormater.localDateTime());
+//		} while (ConsultaDuplicidade.bilhete(bilhete) == false);
+//		bilhete.getVoo().getAviao().setNroAssentos((bilhete.getVoo().getAviao().getNroAssentos()) - 1);
+//		return bilhete;
+//
+//	}
 
 	private static Random rand = new Random();
 	private static char[] letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".toCharArray();
