@@ -8,9 +8,9 @@ public class Bilhete {
 	private String localizador;
 	private int cliente;
 	private int voo;
-	private LocalDateTime dataHora;
+	private String dataHora;
 
-	public Bilhete(String localizador, int cliente, int voo, LocalDateTime dataHora) {
+	public Bilhete(String localizador, int cliente, int voo, String dataHora) {
 		this.localizador = localizador;
 		this.cliente = cliente;
 		this.voo = voo;
@@ -29,7 +29,7 @@ public class Bilhete {
 		return voo;
 	}
 
-	public LocalDateTime getDataHora() {
+	public String getDataHora() {
 		return dataHora;
 	}
 

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 
 import javax.swing.JOptionPane;
 
@@ -15,12 +16,12 @@ public class VooDAO {
 			PreparedStatement stmt = null;
 			
 			try {
-				stmt = con.prepareStatement("INSERT INTO voo(prefixo, origem, destino, horario, aviao) VALUES (?,?,?,?,?,?)");
+				stmt = con.prepareStatement("INSERT INTO voo(prefixo, origem, destino, horario, aviao) VALUES (?,?,?,?,?)");
 				stmt.setString(1, v.getPrefixo());
 				stmt.setString(2, v.getOrigem());
 				stmt.setString(3, v.getDestino());
-				stmt.setString(4, v.getData().toString());
-				stmt.setInt(6, v.getAviao());
+				stmt.setObject(4, v.getTime());
+				stmt.setInt(5, v.getAviao());
 				
 				
 				
@@ -35,7 +36,7 @@ public class VooDAO {
 			}		
 		}
 		
-		public void select() {
+		public static void select() {
 			Connection con = ConnectionFactory.getConnection();
 			PreparedStatement stmt = null;
 			

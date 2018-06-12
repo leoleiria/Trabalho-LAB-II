@@ -1,4 +1,5 @@
 package model;
+import java.sql.Timestamp;
 import java.time.LocalTime;
 
 public class Voo {
@@ -28,7 +29,7 @@ public class Voo {
 		return destino;
 	}
 
-	public LocalTime getData() {
+	public LocalTime getTime() {
 		return time;
 	}
 

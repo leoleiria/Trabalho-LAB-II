@@ -16,7 +16,7 @@ public class ClienteDAO {
 		PreparedStatement stmt = null;
 		
 		try {
-			stmt = con.prepareStatement("INSERT INTO cliente (nome, rg, telefone) VALUES (?,?,?)");
+			stmt = con.prepareStatement("INSERT INTO cliente (nomecliente, rg, telefone) VALUES (?,?,?)");
 			stmt.setString(1, c.getNome());
 			stmt.setInt(2, c.getRg());
 			stmt.setString(3, c.getTelefone());
@@ -32,7 +32,7 @@ public class ClienteDAO {
 		}		
 	}
 	
-	public void select() {
+	public static void select() {
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		

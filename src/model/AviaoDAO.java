@@ -33,7 +33,7 @@ public class AviaoDAO {
 		}		
 	}
 	
-	public void select() {
+	public static void select() {
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		
