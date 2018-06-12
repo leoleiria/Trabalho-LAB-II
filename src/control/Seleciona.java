@@ -60,11 +60,11 @@ public class Seleciona {
 				}
 			}
 			selecao = Console.scanInt("...");
-			if (SistemaDeVendas.vVoo[selecao].getAviao().getNroAssentos() < 1) {
-				System.out.println("Vôo não disponivel para reserva!");
-			} else {
-				testeAssentos = false;
-			}
+			//if (SistemaDeVendas.vVoo[selecao].getAviao().getNroAssentos() < 1) {
+			//	System.out.println("Vôo não disponivel para reserva!");
+			//} else {
+			//	testeAssentos = false;
+			//}
 		} while (testeAssentos == true);
 		return SistemaDeVendas.vVoo[selecao];
 

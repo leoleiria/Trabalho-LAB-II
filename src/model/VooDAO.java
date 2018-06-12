@@ -14,13 +14,14 @@ public class VooDAO {
 		public void create(Voo v) {
 			Connection con = ConnectionFactory.getConnection();
 			PreparedStatement stmt = null;
+		
 			
 			try {
 				stmt = con.prepareStatement("INSERT INTO voo(prefixo, origem, destino, horario, aviao) VALUES (?,?,?,?,?)");
 				stmt.setString(1, v.getPrefixo());
 				stmt.setString(2, v.getOrigem());
-				stmt.setString(3, v.getDestino());
-				stmt.setObject(4, v.getTime());
+				stmt.setString(3, v.getDestino());			
+				stmt.setTime(4, Time.valueOf(v.getTime()));
 				stmt.setInt(5, v.getAviao());
 				
 				
@@ -28,12 +29,14 @@ public class VooDAO {
 				stmt.executeUpdate();
 				
 				JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-				ConnectionFactory.closeConnection(con,stmt);
 				
 			} catch (SQLException ex) {
 				JOptionPane.showMessageDialog(null, "Erro ao salvar: "+ex);
+				
+			} finally {
 				ConnectionFactory.closeConnection(con,stmt);
-			}		
+			} 
+		
 		}
 		
 		public static void select() {
