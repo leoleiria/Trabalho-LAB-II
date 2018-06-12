@@ -56,5 +56,43 @@ public class AviaoDAO {
 			ConnectionFactory.closeConnection(con,stmt);
 		}		
 	}
-	
+	public static void altera(Aviao c, int id) {
+		Connection con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+
+		try {
+			stmt = con.prepareStatement("update aviao set nome = ?, assentos = ? where id = ?");
+			stmt.setString(1, c.getNome());
+			stmt.setInt(2, c.getNroAssentos());
+			stmt.setInt(3, id);
+
+			stmt.executeUpdate();
+
+			JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+			ConnectionFactory.closeConnection(con, stmt);
+
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao salvar: " + ex);
+			ConnectionFactory.closeConnection(con, stmt);
+		}
+	}
+
+	public static void deleta(int id) {
+		Connection con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+
+		try {
+			stmt = con.prepareStatement("delete from aviao where id = ?");
+			stmt.setInt(1, id);
+
+			stmt.executeUpdate();
+
+			JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+			ConnectionFactory.closeConnection(con, stmt);
+
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao salvar: " + ex);
+			ConnectionFactory.closeConnection(con, stmt);
+		}
+	}
 }

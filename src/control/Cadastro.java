@@ -75,7 +75,7 @@ public class Cadastro {
 		String localizador;
 		int cliente;
 		int voo;
-		Timestamp dataHora;
+		String dataHora;
 		
 		do {
 			localizador = localizador(6);
@@ -83,8 +83,7 @@ public class Cadastro {
 			cliente = Console.scanInt("Digite o ID do cliente: ");
 			Consulta.ConsultaVoo();
 			voo = Console.scanInt("Digite o ID do Vôo: ");
-			System.out.println(LocalDateTime.now());
-			dataHora = Timestamp.valueOf(DateFormater.localTime(LocalDateTime.now().toString());
+			dataHora = LocalDate.now().toString();
 		} while (cliente==0 || voo==0);
 		
 		Bilhete b = new Bilhete(localizador,cliente, voo,dataHora);

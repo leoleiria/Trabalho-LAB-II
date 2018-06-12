@@ -20,7 +20,7 @@ public class BilheteDAO {
 			stmt.setString(1, b.getLocalizador() );
 			stmt.setInt(2, b.getCliente());
 			stmt.setInt(3, b.getVoo());
-			stmt.setTimestamp(4, b.getDataHora());
+			stmt.setString(4, b.getDataHora());
 			stmt.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -32,7 +32,7 @@ public class BilheteDAO {
 		}		
 	}
 	
-	public void select() {
+	public static void select() {
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		
@@ -60,5 +60,23 @@ public class BilheteDAO {
 			JOptionPane.showMessageDialog(null, "Erro ao Consultar: "+ex);
 			ConnectionFactory.closeConnection(con,stmt);
 		}		
+	}
+	public static void deleta(int id) {
+		Connection con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+
+		try {
+			stmt = con.prepareStatement("delete from bilhete where id = ?");
+			stmt.setInt(1, id);
+
+			stmt.executeUpdate();
+
+			JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+			ConnectionFactory.closeConnection(con, stmt);
+
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao salvar: " + ex);
+			ConnectionFactory.closeConnection(con, stmt);
+		}
 	}
 }
