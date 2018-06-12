@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import model.AviaoDAO;
+import model.BilheteDAO;
 import sistemaDeVendas.SistemaDeVendas;
 
 public class consulta {
@@ -37,29 +40,9 @@ public class consulta {
 	}
 
 	public static void ConsultaAviao() {
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
-					"postgres", "admin");
-			String sql = "SELECT * FROM aviao";
-			PreparedStatement comando = conexao.prepareStatement(sql);
-
-			ResultSet resultado = comando.executeQuery();
-			while (resultado.next()) {
-				System.out.print("ID: " + resultado.getInt("id"));
-				System.out.print(" // Nome: " + resultado.getString("nome"));
-				System.out.println(" // Assentos: " + resultado.getString("assentos"));
-			}
-
-			conexao.close();
-
-		} catch (SQLException e) {
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-			return;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		System.out.println("Consulta Avião:");
+		AviaoDAO consulta = new AviaoDAO();
+		consulta.select();
 	}
 
 	public static void ConsultaVoo() {
@@ -92,11 +75,8 @@ public class consulta {
 	}
 
 	public static void ConsultaBilhete() {
-		for (int i = 0; i < SistemaDeVendas.contBil; i++) {
-			if (SistemaDeVendas.vBilhete[i] != null) {
-				System.out.println(SistemaDeVendas.vBilhete[i]);
-			}
+		System.out.println("Consulta Bilhetes:");
+		BilheteDAO consulta = new BilheteDAO();
+		consulta.select();
 		}
-	}
-
 }

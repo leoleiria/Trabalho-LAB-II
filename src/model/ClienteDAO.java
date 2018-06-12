@@ -4,23 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
 import connection.ConnectionFactory;
 
-public class AviaoDAO {
+public class ClienteDAO {
 	
-	public void create(Aviao a) {
+	public void create(Cliente c) {
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		
 		try {
-			stmt = con.prepareStatement("INSERT INTO aviao (nome, assentos) VALUES (?,?)");
-			stmt.setString(1, a.getNome());
-			stmt.setInt(2, a.getNroAssentos());
+			stmt = con.prepareStatement("INSERT INTO cliente (nome, rg, telefone) VALUES (?,?,?)");
+			stmt.setString(1, c.getNome());
+			stmt.setInt(2, c.getRg());
+			stmt.setString(3, c.getTelefone());
 			
 			stmt.executeUpdate();
 			
@@ -38,14 +37,15 @@ public class AviaoDAO {
 		PreparedStatement stmt = null;
 		
 		try {
-			stmt = con.prepareStatement("select * from aviao");
+			stmt = con.prepareStatement("select * from cliente");
 						
 			
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
 				System.out.print("ID: " + resultado.getInt("id"));
 				System.out.print(" // Nome: " + resultado.getString("nome"));
-				System.out.print(" // Assentos: " + resultado.getInt("assentos"));
+				System.out.print(" // RG: " + resultado.getInt("rg"));
+				System.out.print(" // Telefone: " + resultado.getString("nome"));
 				System.out.println("");
 			}
 			System.out.println("");
@@ -56,5 +56,4 @@ public class AviaoDAO {
 			ConnectionFactory.closeConnection(con,stmt);
 		}		
 	}
-	
 }

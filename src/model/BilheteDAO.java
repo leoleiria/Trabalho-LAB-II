@@ -4,23 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
 import connection.ConnectionFactory;
 
-public class AviaoDAO {
-	
-	public void create(Aviao a) {
+public class BilheteDAO {
+	public void create(Bilhete b) {
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement stmt = null;
 		
 		try {
-			stmt = con.prepareStatement("INSERT INTO aviao (nome, assentos) VALUES (?,?)");
-			stmt.setString(1, a.getNome());
-			stmt.setInt(2, a.getNroAssentos());
+			stmt = con.prepareStatement("INSERT INTO Bilhete (localizador, idcliente, idvoo, horacompra) VALUES (?,?,?,?)");
+			stmt.setString(1, b.getLocalizador() );
+			stmt.setInt(2, b.getCliente());
+			stmt.setInt(3, b.getVoo());
+			stmt.setString(4, b.getDataHora().toString());
 			
 			stmt.executeUpdate();
 			
@@ -38,14 +37,20 @@ public class AviaoDAO {
 		PreparedStatement stmt = null;
 		
 		try {
-			stmt = con.prepareStatement("select * from aviao");
+			stmt = con.prepareStatement("select * from bilhete, cliente, voo\r\n" + 
+					"where bilhete.idcliente= cliente.id\r\n" + 
+					"and bilhete.idvoo = voo.id");
 						
 			
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
 				System.out.print("ID: " + resultado.getInt("id"));
-				System.out.print(" // Nome: " + resultado.getString("nome"));
-				System.out.print(" // Assentos: " + resultado.getInt("assentos"));
+				System.out.print(" // localizador: " + resultado.getString("localizador"));
+				System.out.print(" // Cliente: " + resultado.getString("nomecliente"));
+				System.out.print(" // Hora compra: " + resultado.getString("horacompra"));
+				System.out.print(" // Origem: "+resultado.getString("origem"));
+				System.out.print(" // Destino: "+resultado.getString("destino"));
+				System.out.print(" // Horario: "+resultado.getString("horario"));
 				System.out.println("");
 			}
 			System.out.println("");
@@ -56,5 +61,4 @@ public class AviaoDAO {
 			ConnectionFactory.closeConnection(con,stmt);
 		}		
 	}
-	
 }
