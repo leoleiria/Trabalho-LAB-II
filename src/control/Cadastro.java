@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -49,7 +50,7 @@ public class Cadastro {
 		
 	public static void cadastrarVoo() {
 		String prefixo, origem, destino;
-		LocalTime horario;
+		String horario;
 		int idaviao;
 		System.out.println("_______________________________");
 		System.out.println("Cadastro de Voo:");
@@ -57,7 +58,7 @@ public class Cadastro {
 			prefixo = Console.scanString("Digite o prefixo do voo: ");
 			origem = Console.scanString("Digite a origem: ");
 			destino = Console.scanString("Digite o destino: ");
-			horario = DateFormater.localTime(Console.scanString("Digite o horário de partida(hh:mm): "));
+			horario = Console.scanString("Digite o horário de partida(hh:mm): ");
 			Consulta.ConsultaAviao();
 			idaviao = Console.scanInt("Digite o id do avião desejado: ");			
 		} while (prefixo.isEmpty() || origem.isEmpty() || destino.isEmpty());
@@ -74,7 +75,7 @@ public class Cadastro {
 		String localizador;
 		int cliente;
 		int voo;
-		String dataHora;
+		Timestamp dataHora;
 		
 		do {
 			localizador = localizador(6);
@@ -82,7 +83,8 @@ public class Cadastro {
 			cliente = Console.scanInt("Digite o ID do cliente: ");
 			Consulta.ConsultaVoo();
 			voo = Console.scanInt("Digite o ID do Vôo: ");
-			dataHora = LocalDate.now().toString();
+			System.out.println(LocalDateTime.now());
+			dataHora = Timestamp.valueOf(DateFormater.localTime(LocalDateTime.now().toString());
 		} while (cliente==0 || voo==0);
 		
 		Bilhete b = new Bilhete(localizador,cliente, voo,dataHora);

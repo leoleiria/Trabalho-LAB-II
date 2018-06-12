@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
@@ -20,8 +21,8 @@ public class VooDAO {
 				stmt = con.prepareStatement("INSERT INTO voo(prefixo, origem, destino, horario, aviao) VALUES (?,?,?,?,?)");
 				stmt.setString(1, v.getPrefixo());
 				stmt.setString(2, v.getOrigem());
-				stmt.setString(3, v.getDestino());			
-				stmt.setTime(4, Time.valueOf(v.getTime()));
+				stmt.setString(3, v.getDestino());
+				stmt.setString(4, v.getTime());
 				stmt.setInt(5, v.getAviao());
 				
 				
@@ -52,9 +53,9 @@ public class VooDAO {
 				while (resultado.next()) {
 					System.out.print("ID: " + resultado.getInt("id"));
 					System.out.print(" // Prefixo: " + resultado.getString("prefixo"));
-					System.out.print(" // Origem: " + resultado.getInt("origem"));
-					System.out.print(" // Destino: " + resultado.getInt("destino"));
-					System.out.print(" // Hora: " + resultado.getInt("horario"));
+					System.out.print(" // Origem: " + resultado.getString("origem"));
+					System.out.print(" // Destino: " + resultado.getString("destino"));
+					System.out.print(" // Hora: " + resultado.getString("horario"));
 					System.out.println("");
 				}
 				System.out.println("");

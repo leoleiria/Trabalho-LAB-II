@@ -9,7 +9,7 @@ public class DateFormater {
 	public static LocalTime localTime(String msg) {
 		LocalTime localTime = null;
 		try{
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("HH:mm");
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss[.fffffffff]");
         String dataString = Console.scanString(msg);
         localTime = LocalTime.parse(dataString,formatador);
 		} catch (Exception e) {

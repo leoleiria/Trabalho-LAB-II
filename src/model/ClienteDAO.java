@@ -43,9 +43,9 @@ public class ClienteDAO {
 			ResultSet resultado = stmt.executeQuery();
 			while (resultado.next()) {
 				System.out.print("ID: " + resultado.getInt("id"));
-				System.out.print(" // Nome: " + resultado.getString("nome"));
+				System.out.print(" // Nome: " + resultado.getString("nomecliente"));
 				System.out.print(" // RG: " + resultado.getInt("rg"));
-				System.out.print(" // Telefone: " + resultado.getString("nome"));
+				System.out.print(" // Telefone: " + resultado.getString("telefone"));
 				System.out.println("");
 			}
 			System.out.println("");

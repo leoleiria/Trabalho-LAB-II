@@ -6,10 +6,10 @@ public class Voo {
 	private String prefixo;
 	private String origem;
 	private String destino;
-	private LocalTime time;
+	private String time;
 	private int aviao;
 	
-	public Voo(String prefixo, String origem, String destino, LocalTime time, int aviao) {
+	public Voo(String prefixo, String origem, String destino, String time, int aviao) {
 		this.prefixo = prefixo;
 		this.origem = origem;
 		this.destino = destino;
@@ -29,7 +29,7 @@ public class Voo {
 		return destino;
 	}
 
-	public LocalTime getTime() {
+	public String getTime() {
 		return time;
 	}
 

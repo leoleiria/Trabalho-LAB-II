@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 
 import javax.swing.JOptionPane;
 
@@ -19,8 +20,7 @@ public class BilheteDAO {
 			stmt.setString(1, b.getLocalizador() );
 			stmt.setInt(2, b.getCliente());
 			stmt.setInt(3, b.getVoo());
-			stmt.setString(4, b.getDataHora().toString());
-			
+			stmt.setTimestamp(4, b.getDataHora());
 			stmt.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
