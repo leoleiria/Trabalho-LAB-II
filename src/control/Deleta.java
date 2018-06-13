@@ -13,7 +13,7 @@ import model.ClienteDAO;
 import model.VooDAO;
 import view.Console;
 
-public class deleta {
+public class Deleta {
 	public static void DeletarCliente() {
 		ClienteDAO.select();
 		int id = Console.scanInt("Digite ID da pessoa desejada: ");

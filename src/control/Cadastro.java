@@ -41,13 +41,12 @@ public class Cadastro {
 			nome = Console.scanString("Digite o nome: ");
 			assentos = Console.scanInt("Digite a quantidade de assentos: ");
 		} while (nome.isEmpty() || assentos == 0);
-		
+
 		Aviao a = new Aviao(nome, assentos);
 		AviaoDAO dao = new AviaoDAO();
 		dao.create(a);
 	}
-		
-		
+
 	public static void cadastrarVoo() {
 		String prefixo, origem, destino;
 		String horario;
@@ -60,13 +59,13 @@ public class Cadastro {
 			destino = Console.scanString("Digite o destino: ");
 			horario = Console.scanString("Digite o horário de partida(hh:mm): ");
 			Consulta.ConsultaAviao();
-			idaviao = Console.scanInt("Digite o id do avião desejado: ");			
+			idaviao = Console.scanInt("Digite o id do avião desejado: ");
 		} while (prefixo.isEmpty() || origem.isEmpty() || destino.isEmpty());
-		
-		Voo v = new Voo( prefixo, origem, destino, horario, idaviao);
+
+		Voo v = new Voo(prefixo, origem, destino, horario, idaviao);
 		VooDAO dao = new VooDAO();
 		dao.create(v);
-		
+
 	}
 
 	public static void cadastrarVenda() {
@@ -76,7 +75,7 @@ public class Cadastro {
 		int cliente;
 		int voo;
 		String dataHora;
-		
+
 		do {
 			localizador = localizador(6);
 			Consulta.ConsultaCliente();
@@ -84,9 +83,9 @@ public class Cadastro {
 			Consulta.ConsultaVoo();
 			voo = Console.scanInt("Digite o ID do Vôo: ");
 			dataHora = LocalDate.now().toString();
-		} while (cliente==0 || voo==0);
-		
-		Bilhete b = new Bilhete(localizador,cliente, voo,dataHora);
+		} while (cliente == 0 || voo == 0);
+
+		Bilhete b = new Bilhete(localizador, cliente, voo, dataHora);
 		BilheteDAO dao = new BilheteDAO();
 		dao.create(b);
 

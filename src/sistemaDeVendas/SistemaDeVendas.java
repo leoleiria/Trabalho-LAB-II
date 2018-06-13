@@ -1,9 +1,9 @@
 package sistemaDeVendas;
 
 import control.Cadastro;
-import control.altera;
+import control.Altera;
 import control.Consulta;
-import control.deleta;
+import control.Deleta;
 import model.*;
 import view.Menu;
 
@@ -91,13 +91,13 @@ public class SistemaDeVendas {
 		System.out.println("_______________________________");
 		switch (Menu.menuAltera()) {
 		case 1:
-			altera.AlterarCliente();
+			Altera.AlterarCliente();
 			break;
 		case 2: 
-			altera.AlterarAviao();
+			Altera.AlterarAviao();
 			break;
 		case 3:
-			altera.AlterarVoo();
+			Altera.AlterarVoo();
 			break;
 		default:
 			System.out.println("Opção inválida!");
@@ -109,16 +109,16 @@ public class SistemaDeVendas {
 		System.out.println("_______________________________");
 		switch (Menu.menuDeleta()) {
 		case 1:
-			deleta.DeletarCliente();
+			Deleta.DeletarCliente();
 			break;
 		case 2:
-			deleta.DeletarAviao();
+			Deleta.DeletarAviao();
 			break;
 		case 3:
-			deleta.DeletarVoo();
+			Deleta.DeletarVoo();
 			break;
 		case 4:
-			deleta.DeletarBilhete();
+			Deleta.DeletarBilhete();
 			break;
 		default:
 			System.out.println("Opção inválida!");

@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import model.*;
 import view.Console;
 
-public class altera {
+public class Altera {
 	public static void AlterarCliente() {
 		ClienteDAO.select();
 			int id = Console.scanInt("Digite ID da pessoa desejada: ");
