@@ -1,14 +1,15 @@
 package model;
+import java.sql.Timestamp;
 import java.time.LocalTime;
 
 public class Voo {
 	private String prefixo;
 	private String origem;
 	private String destino;
-	private LocalTime time;
-	private Aviao aviao;
+	private String time;
+	private int aviao;
 	
-	public Voo(String prefixo, String origem, String destino, LocalTime time, Aviao aviao) {
+	public Voo(String prefixo, String origem, String destino, String time, int aviao) {
 		this.prefixo = prefixo;
 		this.origem = origem;
 		this.destino = destino;
@@ -28,18 +29,17 @@ public class Voo {
 		return destino;
 	}
 
-	public LocalTime getData() {
+	public String getTime() {
 		return time;
 	}
 
-	public Aviao getAviao() {
+	public int getAviao() {
 		return aviao;
 	}
 
 	@Override
 	public String toString() {
-		return "Prefixo: " + prefixo + ", origem: " + origem + ", destino: " + destino + ", Horario: " + time
-				+ ", aviao: " + aviao.getNome();
+		return "Prefixo: " + prefixo + ", origem: " + origem + ", destino: " + destino + ", Horario: " + time+", aviao "+aviao;
 	}
 
 	

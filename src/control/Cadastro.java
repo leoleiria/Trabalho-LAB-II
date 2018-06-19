@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Random;
@@ -25,9 +27,9 @@ public class Cadastro {
 			nome = Console.scanString("Digite o nome: ");
 			telefone = Console.scanString("Digite o numero de telefone: ");
 		} while (nome.isEmpty() || telefone.isEmpty());
-		String sql = "INSERT INTO cliente(rg,nomecliente,telefone) " + "VALUES ('" + rg + "','" + nome + "','"
-				+ telefone + "')";
-		RequestDB.update(sql);
+		Cliente c = new Cliente(rg, nome, telefone);
+		ClienteDAO dao = new ClienteDAO();
+		dao.create(c);
 	}
 
 	public static void cadastrarAviao() {
@@ -40,13 +42,14 @@ public class Cadastro {
 			assentos = Console.scanInt("Digite a quantidade de assentos: ");
 		} while (nome.isEmpty() || assentos == 0);
 
-		String sql = "INSERT INTO aviao(nome, assentos) " + "VALUES ('" + nome + "','" + assentos + "')";
-		RequestDB.update(sql);
+		Aviao a = new Aviao(nome, assentos);
+		AviaoDAO dao = new AviaoDAO();
+		dao.create(a);
 	}
 
 	public static void cadastrarVoo() {
 		String prefixo, origem, destino;
-		LocalTime horario;
+		String horario;
 		int idaviao;
 		System.out.println("_______________________________");
 		System.out.println("Cadastro de Voo:");
@@ -54,34 +57,36 @@ public class Cadastro {
 			prefixo = Console.scanString("Digite o prefixo do voo: ");
 			origem = Console.scanString("Digite a origem: ");
 			destino = Console.scanString("Digite o destino: ");
-			horario = DateFormater.localTime("Digite o horário de partida(hh:mm): ");
-			consulta.ConsultaAviao();
+			horario = Console.scanString("Digite o horário de partida(hh:mm): ");
+			Consulta.ConsultaAviao();
 			idaviao = Console.scanInt("Digite o id do avião desejado: ");
 		} while (prefixo.isEmpty() || origem.isEmpty() || destino.isEmpty());
-			String sql = "INSERT INTO voo(prefixo, origem, destino, horario, aviao) " + "VALUES ('" + prefixo + "','"
-					+ origem + "','" + destino + "','" + horario + "','" + idaviao + "')";
-			RequestDB.update(sql);
 
+		Voo v = new Voo(prefixo, origem, destino, horario, idaviao);
+		VooDAO dao = new VooDAO();
+		dao.create(v);
 	}
 
 	public static void cadastrarVenda() {
-		String localizadorFinal;
+		System.out.println("_______________________________");
+		System.out.println("Emissão de Bilhete:");
+		String localizador;
 		int cliente;
 		int voo;
-		LocalDateTime dataHora;
-		System.out.println("_______________________________");
-		System.out.println("Venda de Bilhete:");
+		String dataHora;
+
 		do {
-			localizadorFinal = localizador(6);
-			consulta.ConsultaCliente();
-			cliente = Console.scanInt("Digite o ID do cliente:");
-			consulta.ConsultaVoo();
-			voo = Console.scanInt("Digite o Id o Voo");
-			dataHora = DateFormater.localDateTime().now();
+			localizador = localizador(6);
+			Consulta.ConsultaCliente();
+			cliente = Console.scanInt("Digite o ID do cliente: ");
+			Consulta.ConsultaVoo();
+			voo = Console.scanInt("Digite o ID do Vôo: ");
+			dataHora = LocalDate.now().toString();
 		} while (cliente == 0 || voo == 0);
-			String sql = "INSERT INTO bilhete(localizador, idcliente, idvoo, horacompra) " + "VALUES ('"
-					+ localizadorFinal + "','" + cliente + "','" + voo + "','" + dataHora + "')";
-			RequestDB.update(sql);
+
+		Bilhete b = new Bilhete(localizador, cliente, voo, dataHora);
+		BilheteDAO dao = new BilheteDAO();
+		dao.create(b);
 	}
 
 	private static Random rand = new Random();

@@ -1,16 +1,18 @@
 package model;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import model.*;
 
 public class Bilhete {
 	private String localizador;
-	private Cliente cliente;
-	private Voo voo;
-	private LocalDateTime dataHora;
+	private int cliente;
+	private int voo;
+	private String dataHora;
 
-	public Bilhete(String localizador, Cliente cliente, Voo voo, LocalDateTime dataHora) {
+	public Bilhete(String localizador, int cliente, int voo, String dataHora) {
 		this.localizador = localizador;
 		this.cliente = cliente;
 		this.voo = voo;
@@ -21,15 +23,15 @@ public class Bilhete {
 		return localizador;
 	}
 
-	public Cliente getCliente() {
+	public int getCliente() {
 		return cliente;
 	}
 
-	public Voo getVoo() {
+	public int getVoo() {
 		return voo;
 	}
 
-	public LocalDateTime getDataHora() {
+	public String getDataHora() {
 		return dataHora;
 	}
 

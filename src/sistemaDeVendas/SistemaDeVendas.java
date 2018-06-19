@@ -1,9 +1,9 @@
 package sistemaDeVendas;
 
 import control.Cadastro;
-import control.altera;
-import control.consulta;
-import control.deleta;
+import control.Altera;
+import control.Consulta;
+import control.Deleta;
 import model.*;
 import view.Menu;
 
@@ -70,16 +70,16 @@ public class SistemaDeVendas {
 		System.out.println("_______________________________");
 		switch (Menu.menuConsulta()) {
 		case 1:
-			consulta.ConsultaCliente();
+			Consulta.ConsultaCliente();
 			break;
 		case 2:
-			consulta.ConsultaAviao();
+			Consulta.ConsultaAviao();
 			break;
 		case 3:
-			consulta.ConsultaVoo();
+			Consulta.ConsultaVoo();
 			break;
 		case 4:
-			consulta.ConsultaBilhete();
+			Consulta.ConsultaBilhete();
 			break;
 		default:
 			System.out.println("Opção inválida!");
@@ -91,13 +91,13 @@ public class SistemaDeVendas {
 		System.out.println("_______________________________");
 		switch (Menu.menuAltera()) {
 		case 1:
-			altera.AlterarCliente();
+			Altera.AlterarCliente();
 			break;
 		case 2: 
-			altera.AlterarAviao();
+			Altera.AlterarAviao();
 			break;
 		case 3:
-			altera.AlterarVoo();
+			Altera.AlterarVoo();
 			break;
 		case 4:
 			altera.AlterarBilhete();
@@ -112,13 +112,16 @@ public class SistemaDeVendas {
 		System.out.println("_______________________________");
 		switch (Menu.menuDeleta()) {
 		case 1:
-			deleta.DeletarCliente();
+			Deleta.DeletarCliente();
 			break;
 		case 2:
-			deleta.DeletarAviao();
+			Deleta.DeletarAviao();
 			break;
 		case 3:
-			deleta.DeletarVoo();
+			Deleta.DeletarVoo();
+			break;
+		case 4:
+			Deleta.DeletarBilhete();
 			break;
 		case 4:
 			deleta.DeletarBilhete();

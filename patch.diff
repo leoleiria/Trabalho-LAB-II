@@ -1,0 +1,467 @@
+From 149fdd63444f3fa970d13865b64bf9ee911879d2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fernando=20V=C3=A1zquez?= <Â›fernando.vz00@gmail.com>
+Date: Sun, 3 Jun 2018 10:57:47 -0300
+Subject: [PATCH] Adicionando CRUD
+
+---
+ src/control/Cadastro.java                | 76 +++++++++++++++-------
+ src/control/altera.java                  | 74 ++++++++++++++++++++-
+ src/control/consulta.java                | 83 +++++++++++++++++-------
+ src/control/deleta.java                  | 73 ++++++++++++++++++++-
+ src/sistemaDeVendas/SistemaDeVendas.java | 16 ++++-
+ 5 files changed, 272 insertions(+), 50 deletions(-)
+
+diff --git a/src/control/Cadastro.java b/src/control/Cadastro.java
+index d9b195e..7ff9708 100644
+--- a/src/control/Cadastro.java
++++ b/src/control/Cadastro.java
+@@ -4,6 +4,7 @@ import java.sql.Connection;
+ import java.sql.DriverManager;
+ import java.sql.SQLException;
+ import java.sql.Statement;
++import java.time.LocalTime;
+ import java.util.Random;
+ import java.util.logging.Logger;
+ 
+@@ -17,7 +18,7 @@ public class Cadastro {
+ 		String nome;
+ 		String telefone;
+ 		System.out.println("_______________________________");
+-		System.out.println("Cadstro de Cliente:");
++		System.out.println("Cadastro de Cliente:");
+ 		do {
+ 			rg = Console.scanInt("Digite o rg: ");
+ 			nome = Console.scanString("Digite o nome: ");
+@@ -27,11 +28,9 @@ public class Cadastro {
+ 			Class.forName("org.postgresql.Driver");
+ 			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
+ 					"postgres", "admin");
+-			String sql = "INSERT INTO cliente(rg,nomecliente,telefone) " + "VALUES ('" + rg + "','" + nome + "','" + telefone
+-					+ "')";
+-			Statement comando = conexao.createStatement();
+-			int numLinhas = comando.executeUpdate(sql);
+-			System.out.println("Numero de Linhas: " + numLinhas);
++			String sql = "INSERT INTO cliente(rg,nomecliente,telefone) " + "VALUES ('" + rg + "','" + nome + "','"
++					+ telefone + "')";
++			conexao.createStatement().executeUpdate(sql);
+ 			conexao.close();
+ 
+ 		} catch (SQLException e) {
+@@ -43,29 +42,62 @@ public class Cadastro {
+ 		}
+ 	}
+ 
+-	public static Aviao cadastrarAviao() {
++	public static void cadastrarAviao() {
++		String nome;
++		int assentos;
+ 		System.out.println("_______________________________");
+-		System.out.println("Cadstro de Avião:");
+-		Aviao aviao;
++		System.out.println("Cadastro de Avião:");
+ 		do {
+-			aviao = new Aviao(Console.scanString("Digite o ID do avião: "),
+-					Console.scanString("Digite o nome do avião: "),
+-					Console.scanInt("Digite a quantidade de assentos: "));
+-		} while (ConsultaDuplicidade.aviao(aviao) == false);
+-		return aviao;
++			nome = Console.scanString("Digite o nome: ");
++			assentos = Console.scanInt("Digite a quantidade de assentos: ");
++		} while (nome.isEmpty() || assentos == 0);
++		try {
++			Class.forName("org.postgresql.Driver");
++			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
++					"postgres", "admin");
++			String sql = "INSERT INTO aviao(nome, assentos) " + "VALUES ('" + nome + "','" + assentos + "')";
++			conexao.createStatement().executeUpdate(sql);
++			conexao.close();
++
++		} catch (SQLException e) {
++			System.out.println("Connection Failed! Check output console");
++			e.printStackTrace();
++			return;
++		} catch (ClassNotFoundException e) {
++			e.printStackTrace();
++		}
+ 	}
+ 
+-	public static Voo cadastrarVoo() {
++	public static void cadastrarVoo() {
++		String prefixo, origem, destino;
++		LocalTime horario;
++		int idaviao;
+ 		System.out.println("_______________________________");
+-		System.out.println("Cadstro de Vôo:");
+-		Voo voo;
++		System.out.println("Cadastro de Voo:");
+ 		do {
+-			voo = new Voo(Console.scanString("Digite o prefixo: "), Console.scanString("Digite a origem: "),
+-					Console.scanString("Digite o destino: "),
+-					DateFormater.localTime("Digite o horário de partida(hh:mm): "), Seleciona.selecionaAviao());
+-		} while (ConsultaDuplicidade.voo(voo) == false || voo.getData() == null);
++			prefixo = Console.scanString("Digite o prefixo do voo: ");
++			origem = Console.scanString("Digite a origem: ");
++			destino = Console.scanString("Digite o destino: ");
++			horario = DateFormater.localTime("Digite o horário de partida(hh:mm): ");
++			idaviao = Console.scanInt("Digite o id do avião desejado: ");
++		} while (prefixo.isEmpty() || origem.isEmpty() || destino.isEmpty());
++		try {
++			Class.forName("org.postgresql.Driver");
++			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
++					"postgres", "admin");
++			String sql = "INSERT INTO voo(prefixo, origem, destino, horario, aviao) " + "VALUES ('" + prefixo + "','"
++					+ origem + "','" + destino + "','" + horario + "','" + idaviao + "')";
++			conexao.createStatement().executeUpdate(sql);
++			conexao.close();
+ 
+-		return voo;
++		} catch (SQLException e) {
++			System.out.println("Connection Failed! Check output console");
++			e.printStackTrace();
++			return;
++		} catch (ClassNotFoundException e) {
++			e.printStackTrace();
++		}
++		
+ 	}
+ 
+ 	public static Bilhete cadastrarVenda() {
+diff --git a/src/control/altera.java b/src/control/altera.java
+index b086b9f..6a73b03 100644
+--- a/src/control/altera.java
++++ b/src/control/altera.java
+@@ -5,7 +5,9 @@ import java.sql.DriverManager;
+ import java.sql.PreparedStatement;
+ import java.sql.ResultSet;
+ import java.sql.SQLException;
++import java.time.LocalTime;
+ 
++import model.DateFormater;
+ import view.Console;
+ 
+ public class altera {
+@@ -27,8 +29,76 @@ public class altera {
+ 			String novonome = Console.scanString("Digite o novo nome desejado: ");
+ 			String novotelefone = Console.scanString("Digite novo telefone desejado: ");
+ 			String sqlupdate = "UPDATE cliente SET nomecliente = '" + novonome + "', telefone = '" + novotelefone
+-					+ "'WHERE id = " + id ;
+-			conexao.prepareStatement(sqlupdate);
++					+ "'WHERE id = " + id;
++			conexao.prepareStatement(sqlupdate).executeUpdate();
++			conexao.close();
++
++		} catch (SQLException e) {
++			System.out.println("Connection Failed! Check output console");
++			e.printStackTrace();
++			return;
++		} catch (ClassNotFoundException e) {
++			e.printStackTrace();
++		}
++	}
++
++	public static void AlterarAviao() {
++		try {
++			String id = Console.scanString("Digite ID do avião desejado: ");
++			Class.forName("org.postgresql.Driver");
++			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
++					"postgres", "admin");
++			String sql = "SELECT * FROM aviao WHERE id='" + id + "'";
++			PreparedStatement comando = conexao.prepareStatement(sql);
++
++			ResultSet resultado = comando.executeQuery();
++			while (resultado.next()) {
++				System.out.print("ID: " + resultado.getInt("id"));
++				System.out.print(" // Nome: " + resultado.getString("nome"));
++				System.out.println(" // Assentos: " + resultado.getString("assentos"));
++			}
++			String novonome = Console.scanString("Digite o novo nome desejado: ");
++			String novoassentos = Console.scanString("Digite novo número de assentos: ");
++			String sqlupdate = "UPDATE aviao SET nome = '" + novonome + "', assentos = '" + novoassentos
++					+ "'WHERE id = " + id;
++			conexao.prepareStatement(sqlupdate).executeUpdate();
++			conexao.close();
++
++		} catch (SQLException e) {
++			System.out.println("Connection Failed! Check output console");
++			e.printStackTrace();
++			return;
++		} catch (ClassNotFoundException e) {
++			e.printStackTrace();
++		}
++	}
++
++	public static void AlterarVoo() {
++		try {
++			String id = Console.scanString("Digite ID do voo desejado: ");
++			Class.forName("org.postgresql.Driver");
++			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
++					"postgres", "admin");
++			String sql = "SELECT * FROM voo WHERE id='" + id + "'";
++			PreparedStatement comando = conexao.prepareStatement(sql);
++			ResultSet resultado = comando.executeQuery();
++			while (resultado.next()) {
++				System.out.print("ID: " + resultado.getInt("id"));
++				System.out.print(" // Prefixo: " + resultado.getString("prefixo"));
++				System.out.print(" // Origem: " + resultado.getString("origem"));
++				System.out.print(" // Destino: " + resultado.getString("destino"));
++				System.out.print(" // Horário: " + resultado.getString("horario"));
++				System.out.println(" // Avião: " + resultado.getString("aviao"));
++			}
++			String novoprefixo = Console.scanString("Digite o novo prefixo desejado: ");
++			String novaorigem = Console.scanString("Digite a nova origem desejado: ");
++			String novodestino = Console.scanString("Digite o novo destino desejado: ");
++			LocalTime novohorario = DateFormater.localTime("Digite o novo horário de partida(hh:mm): ");
++			int novoaviao = Console.scanInt("Digite o ID do novo avião: ");
++			String sqlupdate = "UPDATE voo SET prefixo = '" + novoprefixo + "', origem = '" + novaorigem
++					+ "', destino = '" + novodestino + "', horario = '" + novohorario + "', aviao= '" + novoaviao
++					+ "'WHERE id = " + id;
++			conexao.prepareStatement(sqlupdate).executeUpdate();
+ 			conexao.close();
+ 
+ 		} catch (SQLException e) {
+diff --git a/src/control/consulta.java b/src/control/consulta.java
+index 9dc5f74..e19e53e 100644
+--- a/src/control/consulta.java
++++ b/src/control/consulta.java
+@@ -9,22 +9,21 @@ import sistemaDeVendas.SistemaDeVendas;
+ 
+ public class consulta {
+ 	public static void ConsultaCliente() {
+-		
+ 		try {
+ 			Class.forName("org.postgresql.Driver");
+ 			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
+ 					"postgres", "admin");
+ 			String sql = "SELECT * FROM cliente";
+-	         PreparedStatement comando = conexao.prepareStatement(sql);
+-	         
+-	         ResultSet resultado = comando.executeQuery();
+-	         while(resultado.next()){
+-	             System.out.print("ID: "+resultado.getInt("id"));
+-	             System.out.print(" // RG: "+resultado.getString("rg"));
+-	             System.out.print(" // Nome: "+resultado.getString("nomecliente"));
+-	             System.out.println(" // Telefone: "+resultado.getString("telefone"));
+-	         }
+-	         
++			PreparedStatement comando = conexao.prepareStatement(sql);
++
++			ResultSet resultado = comando.executeQuery();
++			while (resultado.next()) {
++				System.out.print("ID: " + resultado.getInt("id"));
++				System.out.print(" // RG: " + resultado.getString("rg"));
++				System.out.print(" // Nome: " + resultado.getString("nomecliente"));
++				System.out.println(" // Telefone: " + resultado.getString("telefone"));
++			}
++
+ 			conexao.close();
+ 
+ 		} catch (SQLException e) {
+@@ -34,27 +33,67 @@ public class consulta {
+ 		} catch (ClassNotFoundException e) {
+ 			e.printStackTrace();
+ 		}
+-		 
++
+ 	}
++
+ 	public static void ConsultaAviao() {
+-		for(int i=0;i<SistemaDeVendas.contAvi; i++) {
+-			if(SistemaDeVendas.vAviao[i] != null){
+-				System.out.println(SistemaDeVendas.vAviao[i].getId()+". "+SistemaDeVendas.vAviao[i]);
++		try {
++			Class.forName("org.postgresql.Driver");
++			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
++					"postgres", "admin");
++			String sql = "SELECT * FROM aviao";
++			PreparedStatement comando = conexao.prepareStatement(sql);
++
++			ResultSet resultado = comando.executeQuery();
++			while (resultado.next()) {
++				System.out.print("ID: " + resultado.getInt("id"));
++				System.out.print(" // Nome: " + resultado.getString("nome"));
++				System.out.println(" // Assentos: " + resultado.getString("assentos"));
+ 			}
++
++			conexao.close();
++
++		} catch (SQLException e) {
++			System.out.println("Connection Failed! Check output console");
++			e.printStackTrace();
++			return;
++		} catch (ClassNotFoundException e) {
++			e.printStackTrace();
+ 		}
+ 	}
+-	
++
+ 	public static void ConsultaVoo() {
+-		for(int i=0;i<SistemaDeVendas.contVoo; i++) {
+-			if(SistemaDeVendas.vVoo[i] != null) {
+-				System.out.println(SistemaDeVendas.vVoo[i]);
++		try {
++			Class.forName("org.postgresql.Driver");
++			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
++					"postgres", "admin");
++			String sql = "SELECT * FROM voo";
++			PreparedStatement comando = conexao.prepareStatement(sql);
++
++			ResultSet resultado = comando.executeQuery();
++			while (resultado.next()) {
++				System.out.print("ID: " + resultado.getInt("id"));
++				System.out.print(" // Prefixo: " + resultado.getString("prefixo"));
++				System.out.print(" // Origem: " + resultado.getString("origem"));
++				System.out.print(" // Destino: " + resultado.getString("destino"));
++				System.out.print(" // Horário: " + resultado.getString("horario"));
++				System.out.println(" // Avião: " + resultado.getString("aviao"));
+ 			}
++
++			conexao.close();
++
++		} catch (SQLException e) {
++			System.out.println("Connection Failed! Check output console");
++			e.printStackTrace();
++			return;
++		} catch (ClassNotFoundException e) {
++			e.printStackTrace();
+ 		}
+ 	}
+-	
++
+ 	public static void ConsultaBilhete() {
+-		for(int i=0;i<SistemaDeVendas.contBil; i++) {
+-			if(SistemaDeVendas.vBilhete[i] != null) {
++		for (int i = 0; i < SistemaDeVendas.contBil; i++) {
++			if (SistemaDeVendas.vBilhete[i] != null) {
+ 				System.out.println(SistemaDeVendas.vBilhete[i]);
+ 			}
+ 		}
+diff --git a/src/control/deleta.java b/src/control/deleta.java
+index 7b7a89b..d94efc8 100644
+--- a/src/control/deleta.java
++++ b/src/control/deleta.java
+@@ -24,8 +24,77 @@ public class deleta {
+ 				System.out.print(" // Nome: " + resultado.getString("nomecliente"));
+ 				System.out.println(" // Telefone: " + resultado.getString("telefone"));
+ 			}
+-			String sqldelete = "DELETE * FROM cliente WHERE id=" + id;
+-			conexao.prepareStatement(sqldelete);
++			System.out.println("Deletar este usuário?\n[1] Sim\n[2] Não");
++			int resposta = Console.scanInt("Opção > ");
++			if (resposta == 1) {
++				String sqldelete = "DELETE FROM cliente WHERE id=" + id;
++				conexao.prepareStatement(sqldelete).executeUpdate();
++			}
++			conexao.close();
++
++		} catch (SQLException e) {
++			System.out.println("Connection Failed! Check output console");
++			e.printStackTrace();
++			return;
++		} catch (ClassNotFoundException e) {
++			e.printStackTrace();
++		}
++	}
++
++	public static void DeletarAviao() {
++		try {
++			String id = Console.scanString("Digite ID do avião desejado: ");
++			Class.forName("org.postgresql.Driver");
++			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
++					"postgres", "admin");
++			String sql = "SELECT * FROM aviao WHERE id='" + id + "'";
++			PreparedStatement comando = conexao.prepareStatement(sql);
++			ResultSet resultado = comando.executeQuery();
++			while (resultado.next()) {
++				System.out.print("ID: " + resultado.getInt("id"));
++				System.out.print(" // Nome: " + resultado.getString("nome"));
++				System.out.println(" // Assentos: " + resultado.getString("assentos"));
++			}
++			System.out.println("Deletar este avião?\n[1] Sim\n[2] Não");
++			int resposta = Console.scanInt("Opção > ");
++			if (resposta == 1) {
++				String sqldelete = "DELETE FROM aviao WHERE id=" + id;
++				conexao.prepareStatement(sqldelete).executeUpdate();
++			}
++			conexao.close();
++
++		} catch (SQLException e) {
++			System.out.println("Connection Failed! Check output console");
++			e.printStackTrace();
++			return;
++		} catch (ClassNotFoundException e) {
++			e.printStackTrace();
++		}
++	}
++
++	public static void DeletarVoo() {
++		try {
++			String id = Console.scanString("Digite ID do voo desejado: ");
++			Class.forName("org.postgresql.Driver");
++			Connection conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Trabalho01LB2",
++					"postgres", "admin");
++			String sql = "SELECT * FROM voo WHERE id='" + id + "'";
++			PreparedStatement comando = conexao.prepareStatement(sql);
++			ResultSet resultado = comando.executeQuery();
++			while (resultado.next()) {
++				System.out.print("ID: " + resultado.getInt("id"));
++				System.out.print(" // Prefixo: " + resultado.getString("prefixo"));
++				System.out.print(" // Origem: " + resultado.getString("origem"));
++				System.out.print(" // Destino: " + resultado.getString("destino"));
++				System.out.print(" // Horário: " + resultado.getString("horario"));
++				System.out.println(" // Avião: " + resultado.getString("aviao"));
++			}
++			System.out.println("Deletar este voo?\n[1] Sim\n[2] Não");
++			int resposta = Console.scanInt("Opção > ");
++			if (resposta == 1) {
++				String sqldelete = "DELETE FROM voo WHERE id=" + id;
++				conexao.prepareStatement(sqldelete).executeUpdate();
++			}
+ 			conexao.close();
+ 
+ 		} catch (SQLException e) {
+diff --git a/src/sistemaDeVendas/SistemaDeVendas.java b/src/sistemaDeVendas/SistemaDeVendas.java
+index 1246ae1..6eabbd6 100644
+--- a/src/sistemaDeVendas/SistemaDeVendas.java
++++ b/src/sistemaDeVendas/SistemaDeVendas.java
+@@ -52,10 +52,10 @@ public class SistemaDeVendas {
+ 			Cadastro.cadastrarCliente();
+ 			break;
+ 		case 2:
+-			vAviao[contAvi++] = Cadastro.cadastrarAviao();
++			Cadastro.cadastrarAviao();
+ 			break;
+ 		case 3:
+-			vVoo[contVoo++] = Cadastro.cadastrarVoo();
++			Cadastro.cadastrarVoo();
+ 			break;
+ 		case 4:
+ 			vBilhete[contBil++] = Cadastro.cadastrarVenda();
+@@ -93,6 +93,12 @@ public class SistemaDeVendas {
+ 		case 1:
+ 			altera.AlterarCliente();
+ 			break;
++		case 2: 
++			altera.AlterarAviao();
++			break;
++		case 3:
++			altera.AlterarVoo();
++			break;
+ 		default:
+ 			System.out.println("Opção inválida!");
+ 			break;
+@@ -105,6 +111,12 @@ public class SistemaDeVendas {
+ 		case 1:
+ 			deleta.DeletarCliente();
+ 			break;
++		case 2:
++			deleta.DeletarAviao();
++			break;
++		case 3:
++			deleta.DeletarVoo();
++			break;
+ 		default:
+ 			System.out.println("Opção inválida!");
+ 			break;
+-- 
+2.17.0.windows.1
+

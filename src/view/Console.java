@@ -1,4 +1,5 @@
 package view;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Console {
@@ -10,9 +11,15 @@ public class Console {
 	}
 
 	public static int scanInt(Object out) {
-		System.out.print(out);
-		Scanner scanner = new Scanner(System.in);
-		return (scanner.nextInt());
+		int resposta = 0;
+		try {
+			System.out.print(out);
+			Scanner scanner = new Scanner(System.in);
+			resposta = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("You have entered invalid data");
+        }
+		return resposta;
 	}
 
 	public static double scanDouble(Object out) {
