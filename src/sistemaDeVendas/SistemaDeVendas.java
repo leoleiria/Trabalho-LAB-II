@@ -99,9 +99,6 @@ public class SistemaDeVendas {
 		case 3:
 			Altera.AlterarVoo();
 			break;
-		case 4:
-			altera.AlterarBilhete();
-			break;
 		default:
 			System.out.println("Opção inválida!");
 			break;
@@ -122,9 +119,6 @@ public class SistemaDeVendas {
 			break;
 		case 4:
 			Deleta.DeletarBilhete();
-			break;
-		case 4:
-			deleta.DeletarBilhete();
 			break;
 		default:
 			System.out.println("Opção inválida!");
