@@ -5,7 +5,7 @@ import control.Altera;
 import control.Consulta;
 import control.Deleta;
 import model.*;
-import view.Menu;
+import view.*;
 
 public class SistemaDeVendas {
 	public static Voo vVoo[]= new Voo[30];
@@ -20,6 +20,9 @@ public class SistemaDeVendas {
 	static boolean fim = true;
 	
 	public static void main(String[] args) {
+		
+		
+		
 		do {
 			System.out.println("_______________________________");
 		switch (Menu.menu()) {

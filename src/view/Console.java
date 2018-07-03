@@ -17,7 +17,7 @@ public class Console {
 			Scanner scanner = new Scanner(System.in);
 			resposta = scanner.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println("You have entered invalid data");
+            System.out.println("Você digitou um caracter inválido! Tente Novamente.");
         }
 		return resposta;
 	}
